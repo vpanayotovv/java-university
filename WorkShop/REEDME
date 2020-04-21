@@ -1,0 +1,11 @@
+this is simple convector
+can handle 3 commands:
+**CONVERT
+**HISTORY
+**END
+
+example:
+CONVERT 3 BGN EUR
+
+have to get variable API_KEY setup with your CurrConv:
+https://free.currencyconverterapi.com/
