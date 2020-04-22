@@ -1,0 +1,3 @@
+Very simple web project with Maven , Spring , thymeleaf
+
+Can add and delete contacts.
