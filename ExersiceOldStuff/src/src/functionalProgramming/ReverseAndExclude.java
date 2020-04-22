@@ -18,4 +18,3 @@ public class ReverseAndExclude {
         System.out.println(join.replaceAll("\\[|]|,", ""));
     }
 }
-    
