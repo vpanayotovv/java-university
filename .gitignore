@@ -73,3 +73,10 @@ fabric.properties
 .gitignore
 .idea/workspace.xml
 Exersice/
+/ExersiceOldStuff/.idea
+/ExersiceOldStuff/*.iml
+/Java Advanced/.idea
+/Java Advanced/*.iml
+/OOP/*.iml
+/phonebook/.idea
+/WorkShop/*.iml
