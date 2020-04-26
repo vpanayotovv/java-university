@@ -24,7 +24,7 @@ public class Queen {
     private static boolean isValidQueen(char[][] field, int row, int col) {
         for (int rowDirection = -1; rowDirection <= 1; rowDirection++) {
             for (int colDirection = -1; colDirection <= 1; colDirection++) {
-                if (rowDirection == 0 && colDirection == 0){
+                if (rowDirection == 0 && colDirection == 0) {
                     continue;
                 }
 
