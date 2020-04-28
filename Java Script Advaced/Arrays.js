@@ -30,7 +30,7 @@ function addAndRemove(input){
     }
 }
 function rotateArray(input){
-    let rotations = input[input.length - 1] % input.length
+    let rotations = (+input[input.length - 1]) % (input.length - 1)
     let arr = input.slice(0,input.length-1)
     for (let i = 0; i < +rotations; i++) {
         arr.unshift(arr.pop()   )
