@@ -29,8 +29,11 @@ function addAndRemove(input){
     return console.log(newArr.join('\n').trim());
     }
 }
-
-addAndRemove(['add', 
-'add', 
-'add', 
-'add'])
+function rotateArray(input){
+    let rotations = input[input.length - 1] % input.length
+    let arr = input.slice(0,input.length-1)
+    for (let i = 0; i < +rotations; i++) {
+        arr.unshift(arr.pop()   )
+    }
+    console.log(arr.join(' '))
+}
