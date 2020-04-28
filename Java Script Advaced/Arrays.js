@@ -37,3 +37,14 @@ function rotateArray(input){
     }
     console.log(arr.join(' '))
 }
+function extract(input){
+
+   let output = input.reduce((acc,curr) => {
+        const lastElement = acc[acc.length - 1]
+        if(curr >= lastElement || lastElement === undefined){
+            acc.push(curr);
+        }
+        return acc;
+    },[])
+    console.log(output.join('\n'))
+}
