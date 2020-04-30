@@ -37,7 +37,7 @@ function magicMatrix(matrix) {
     return 'true';
 }
 function matrix(n) {
-    let result = new Array(n).fill().map(() => new Array(n).fill('')); // create empty n x n array
+    let result = new Array(n).fill().map(() => new Array(n).fill(''));
     let counter = 1;
     let startCol = 0;
     let endCol = n - 1;
