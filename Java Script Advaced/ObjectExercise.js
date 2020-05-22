@@ -25,3 +25,19 @@ function makingJuice(input){
     });
     return bottles;
 }
+
+function sort(input){
+    let cataloge = {}
+    for (const line of input) {
+        let [ name , price ] = line.split(' : ');
+        price = Number(price);
+        let initial = name[0];
+
+        if(!cataloge.hasOwnProperty(initial)){
+            cataloge[initial] = {};
+        }
+        let products = cataloge[initial];
+        products[name] = price;
+    }
+    return Object.keys(products).sort();
+}
