@@ -4,16 +4,15 @@ public class RecursiveDrawing {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
-        
+
         draw(n);
-        
-        
     }
 
     private static void draw(int n) {
         if (n == 0){
             return;
         }
+
         printChars(n, "*");
         System.out.println();
         draw(n - 1);
