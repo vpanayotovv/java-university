@@ -1,3 +1,4 @@
-# SoftuniRepo
-My work from Software University
+# Software-Universit
+
+This is my work from Software University
 https://softuni.bg/
