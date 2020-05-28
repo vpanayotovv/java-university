@@ -14,15 +14,17 @@ public class RecursiveDrawing {
         if (n == 0){
             return;
         }
-        for (int i = 0; i < n; i++) {
-            System.out.print("*");
-        }
+        printChars(n, "*");
         System.out.println();
         draw(n - 1);
 
-        for (int i = 0; i < n; i++) {
-            System.out.print("#");
-        }
+        printChars(n, "#");
         System.out.println();
+    }
+
+    private static void printChars(int n, String s) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(s);
+        }
     }
 }
