@@ -1,9 +1,14 @@
-public class PermutationsWithoutRepetitions {
-    private static String[] elements = {"A", "B", "C"};
-    private static String[] permutes = new String[elements.length];
-    private static boolean[] used = new boolean[elements.length];
+import java.util.Scanner;
 
+public class PermutationsWithoutRepetitions {
+    private static String[] elements;
+    private static String[] permutes;
+    private static boolean[] used;
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        elements = scanner.nextLine().split("\\s+");
+        permutes = new String[elements.length];
+        used = new boolean[elements.length];
         permute(0);
     }
 
