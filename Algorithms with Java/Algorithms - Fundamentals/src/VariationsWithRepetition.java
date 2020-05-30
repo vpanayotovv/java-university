@@ -17,9 +17,9 @@ public class VariationsWithRepetition {
             print(variations);
             return;
         }
-        for (int i = 0; i < elements.length; i++) {
-                variations[index] = elements[i];
-                variations(index + 1);
+        for (String element : elements) {
+            variations[index] = element;
+            variations(index + 1);
         }
     }
 
