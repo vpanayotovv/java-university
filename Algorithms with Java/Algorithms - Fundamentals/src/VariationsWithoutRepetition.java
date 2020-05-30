@@ -33,3 +33,15 @@ public class VariationsWithoutRepetition {
         System.out.println(String.join(" ",arr));
     }
 }
+
+// INPUT:
+// A B C
+// 2
+//
+// OUTPUT:
+// A B
+// A C
+// B A
+// B C
+// C A
+// C B
