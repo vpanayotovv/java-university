@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Combinations {
+public class CombinationsWithoutRep {
     private static String[] elements;
     private static String[] variations;
 
@@ -28,3 +28,12 @@ public class Combinations {
         System.out.println(String.join(" ", arr));
     }
 }
+
+// INPUT:
+// A B C
+// 2
+//
+// OUTPUT:
+// A B
+// A C
+// B C
