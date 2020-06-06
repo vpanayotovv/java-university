@@ -34,3 +34,7 @@ public class CombinationsWithoutRep2 {
         System.out.println();
     }
 }
+
+// INPUT :
+// 3
+// 2
