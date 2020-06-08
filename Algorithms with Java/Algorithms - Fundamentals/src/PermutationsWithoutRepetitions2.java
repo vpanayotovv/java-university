@@ -2,12 +2,10 @@ import java.util.Scanner;
 
 public class PermutationsWithoutRepetitions2 {
     private static String[] elements;
-    private static String[] permutes;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         elements = scanner.nextLine().split("\\s+");
-        permutes = new String[elements.length];
         permute(0);
     }
 
