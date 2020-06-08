@@ -4,6 +4,7 @@ public class ConnectedAreasInAMatrix {
     private static char[][] matrix;
     private static List<int[]> areas;
     private static int counter = 1;
+    private static StringBuilder builder = new StringBuilder();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class ConnectedAreasInAMatrix {
                 }
             }
         }
-        System.out.println("Total areas found: " + areas.size());
+        builder.append("Total areas found: ").append(areas.size()).append(System.lineSeparator());
         areas.sort((f,s) -> {
             if (f[2] - s[2] != 0){
                 return s[2] - f[2];
@@ -31,13 +32,13 @@ public class ConnectedAreasInAMatrix {
             }
         });
         for (int[] area : areas) {
-                System.out.print(String.format("Area #%d at (%d, %d), size: %d",
+                builder.append(String.format("Area #%d at (%d, %d), size: %d",
                         counter++,
                         area[0],
                         area[1],
-                        area[2]));
-            System.out.println();
+                        area[2])).append(System.lineSeparator());
         }
+        System.out.println(builder.toString());
 
     }
 
