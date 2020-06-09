@@ -1,6 +1,11 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class MergeSort {
     public static void main(String[] args) {
-        int[] arr = new int[]{3, 23, 43, 12, 34};
+        Scanner scanner = new Scanner(System.in);
+
+        int[] arr = Arrays.stream(scanner.nextLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
 
         sort(arr);
 
