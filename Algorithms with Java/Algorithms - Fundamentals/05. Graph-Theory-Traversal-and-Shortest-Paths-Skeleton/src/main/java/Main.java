@@ -33,10 +33,11 @@ public class Main {
     public static List<Deque<Integer>> getConnectedComponents(List<List<Integer>> graph) {
         boolean[] visited = new boolean[graph.size()];
         List<Deque<Integer>> result = new ArrayList<>();
-
         for (int i = 0; i < graph.size(); i++) {
-            result.add(new ArrayDeque<>());
-            dfs(i,result,graph,visited);
+            if (!visited[i]) {
+                result.add(new ArrayDeque<>());
+                dfs(i, result, graph, visited);
+            }
         }
         return result;
     }
