@@ -6,11 +6,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
         List<List<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i <n; i++) {
+        for (int i = 0; i < n; i++) {
             String nextLine = scanner.nextLine();
-            if (nextLine.trim().equals("")){
+            if (nextLine.trim().equals("")) {
                 graph.add(new ArrayList<>());
-            }else {
+            } else {
                 List<Integer> nextNodes = Arrays.stream(nextLine.split("\\s+"))
                         .mapToInt(Integer::parseInt)
                         .boxed()
@@ -53,6 +53,43 @@ public class Main {
     }
 
     public static Collection<String> topSort(Map<String, List<String>> graph) {
-        throw new AssertionError("Not Implemented");
+        Map<String, Integer> dependenciesCount = getDependenciesCount(graph);
+        List<String> sorted = new ArrayList<>();
+
+        while (!graph.isEmpty()) {
+            String keyWithoutDependencies = graph.keySet()
+                    .stream()
+                    .filter(key -> dependenciesCount.get(key) == 0)
+                    .findFirst()
+                    .orElse(null);
+            if (keyWithoutDependencies == null) {
+                break;
+            }
+
+            for (String child : graph.get(keyWithoutDependencies)) {
+                dependenciesCount.put(child, dependenciesCount.get(child) - 1);
+            }
+
+            sorted.add(keyWithoutDependencies);
+            graph.remove(keyWithoutDependencies);
+
+        }
+        if (!graph.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+
+        return sorted;
+    }
+
+    private static Map<String, Integer> getDependenciesCount(Map<String, List<String>> graph) {
+        Map<String, Integer> dependenciesCount = new LinkedHashMap<>();
+        for (Map.Entry<String, List<String>> node : graph.entrySet()) {
+            dependenciesCount.putIfAbsent(node.getKey(), 0);
+            for (String child : node.getValue()) {
+                dependenciesCount.putIfAbsent(child, 0);
+                dependenciesCount.put(child, dependenciesCount.get(child) + 1);
+            }
+        }
+        return dependenciesCount;
     }
 }
