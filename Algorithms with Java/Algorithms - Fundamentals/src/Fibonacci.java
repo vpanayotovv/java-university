@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
 public class Fibonacci {
+    private static long[] dp;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
+        dp = new long[n + 1];
 
         long fib = calcFib(n);
 
@@ -15,6 +17,10 @@ public class Fibonacci {
             return 1;
         }
 
-        return calcFib(n -1 ) + calcFib( n - 2);
+        if (dp[n] != 0){
+            return dp[n];
+        }
+
+        return dp[n] = calcFib(n -1 ) + calcFib( n - 2);
     }
 }
