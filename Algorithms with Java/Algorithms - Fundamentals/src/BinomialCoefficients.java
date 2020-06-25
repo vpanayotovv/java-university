@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
 public class BinomialCoefficients {
-    private static long[] memory;
+    private static long[][] memory;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
         int k = Integer.parseInt(scanner.nextLine());
-        memory = new long[n * k + 1];
+        memory = new long[n + 1][k + 1];
         long binom = calcBinom(n, k);
         System.out.println(binom);
     }
@@ -17,11 +17,11 @@ public class BinomialCoefficients {
             return 1;
         }
 
-        if (memory[n * k] != 0) {
-            return memory[n * k];
+        if (memory[n][k] != 0) {
+            return memory[n][k];
         }
 
 
-        return memory[n * k] = calcBinom(n - 1, k) + calcBinom(n - 1, k - 1);
+        return memory[n][k] = calcBinom(n - 1, k) + calcBinom(n - 1, k - 1);
     }
 }
