@@ -7,27 +7,27 @@ public class Dijkstra {
         int[] distances = new int[graph.length];
         int[] prev = new int[graph.length];
 
-        Arrays.fill(prev,-1);
+        Arrays.fill(prev, -1);
 
         boolean[] visited = new boolean[graph.length];
-        Arrays.fill(distances,Integer.MAX_VALUE);
+        Arrays.fill(distances, Integer.MAX_VALUE);
         distances[sourceNode] = 0;
 
         PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.comparingInt(node -> distances[node]));
 
         queue.offer(sourceNode);
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int parent = queue.poll();
             visited[parent] = true;
             int[] child = graph[parent];
 
             for (int i = 0; i < child.length; i++) {
-                if (child[i] != 0 && !visited[i]){
+                if (child[i] != 0 && !visited[i]) {
                     queue.offer(i);
                     int newDistance = distances[parent] + graph[parent][i];
 
-                    if (newDistance < distances[i]){
+                    if (newDistance < distances[i]) {
 
                         distances[i] = newDistance;
                         prev[i] = parent;
@@ -39,7 +39,7 @@ public class Dijkstra {
         List<Integer> path = new ArrayList<>();
         path.add(destinationNode);
         int n = prev[destinationNode];
-        while (n != -1){
+        while (n != -1) {
             path.add(n);
             n = prev[n];
         }
