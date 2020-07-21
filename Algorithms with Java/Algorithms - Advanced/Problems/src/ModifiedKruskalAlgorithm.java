@@ -69,7 +69,7 @@ public class ModifiedKruskalAlgorithm {
 
             }
         }
-        System.out.println(String.format("Minimum spanning forest weight: %d",forestWeight));
+        System.out.println(String.format("Minimum spanning forest weight: %d", forestWeight));
         System.out.println(builder.toString().trim());
     }
 
