@@ -13,7 +13,7 @@ public class Abaspa {
 
         dp = new int[first.length()][second.length()];
 
-        int bestLenght = -1;
+        int bestLength = -1;
         int bestRow = -1;
         int bestCol = -1;
 
@@ -22,8 +22,8 @@ public class Abaspa {
                 if (first.charAt(row) == second.charAt(col)) {
                     dp[row][col] = getBestPrev(row, col) + 1;
                 }
-                if (dp[row][col] > bestLenght) {
-                    bestLenght = dp[row][col];
+                if (dp[row][col] > bestLength) {
+                    bestLength = dp[row][col];
                     bestRow = row;
                     bestCol = col;
                 }
