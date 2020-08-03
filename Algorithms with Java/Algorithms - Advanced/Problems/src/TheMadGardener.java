@@ -18,9 +18,7 @@ public class TheMadGardener {
 
         int[] plants = new int[input.length + 1];
 
-        for (int i = 1; i < plants.length; i++) {
-            plants[i] = input[i - 1];
-        }
+        System.arraycopy(input, 0, plants, 1, plants.length - 1);
 
         Sequence[] lis = getLIS(plants);
 
