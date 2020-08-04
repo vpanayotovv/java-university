@@ -3,9 +3,9 @@ import java.util.stream.Collectors;
 
 public class BellmanFord {
 
-    public static int[][] graph;
-    public static int[] distances;
-    public static int[] prev;
+    private static int[][] graph;
+    private static int[] distances;
+    private static int[] prev;
 
 
     public static void main(String[] args) {
@@ -29,8 +29,12 @@ public class BellmanFord {
         int source = Integer.parseInt(scanner.nextLine());
         int destination = Integer.parseInt(scanner.nextLine());
 
-
-        bellmanFord(source);
+        try {
+            bellmanFord(source);
+        }catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+            return;
+        }
 
         List<Integer> path = new ArrayList<>();
         path.add(destination);
@@ -71,6 +75,19 @@ public class BellmanFord {
                 }
             }
         }
-        System.out.println();
+        for (int i = 0; i < graph.length - 1; i++) {
+            for (int row = 0; row < graph.length; row++) {
+                for (int col = 0; col < graph[row].length; col++) {
+                    if (graph[row][col] != 0) {
+                        if (distances[row] != Integer.MAX_VALUE) {
+                            int newValue = distances[row] + graph[row][col];
+                            if (newValue < distances[col]) {
+                                throw new IllegalArgumentException("Negative Cycle Detected");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
