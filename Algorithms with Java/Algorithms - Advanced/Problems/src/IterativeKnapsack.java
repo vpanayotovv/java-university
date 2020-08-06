@@ -1,11 +1,12 @@
 import java.util.*;
 
-public class IterativeKnapsack{
-    public static class Item  implements Comparable<Item> {
+public class IterativeKnapsack {
+    public static class Item implements Comparable<Item> {
 
         String name;
         int weight;
         int price;
+
         public Item(String name, int weight, int price) {
             this.name = name;
             this.weight = weight;
@@ -59,7 +60,7 @@ public class IterativeKnapsack{
         }
         int weight = capacity;
 
-        while (dp[items.size()][weight - 1] == dp[items.size()][capacity]){
+        while (dp[items.size()][weight - 1] == dp[items.size()][capacity]) {
             weight--;
         }
         System.out.println("Total Weight: " + weight);
@@ -69,16 +70,14 @@ public class IterativeKnapsack{
 
         int lastItem = items.size();
 
-        while (lastItem > 0){
-            if (takenItems[lastItem][capacity]){
+        while (lastItem > 0) {
+            if (takenItems[lastItem][capacity]) {
                 Item item = items.get(lastItem - 1);
                 result.add(item);
                 capacity -= item.weight;
             }
             lastItem--;
         }
-
-
 
 
         for (Item item : result) {
