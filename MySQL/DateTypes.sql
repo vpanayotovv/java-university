@@ -29,3 +29,6 @@ value (1,'Kevin',22,1),
 
 truncate minions;
 
+drop table minions;
+
+drop table towns;
