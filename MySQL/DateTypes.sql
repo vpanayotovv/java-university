@@ -101,3 +101,6 @@ select * from department
 order by name;
 select * from employees
 order by salary desc;
+
+update employees
+set salary = salary + (salary * 0.1);
