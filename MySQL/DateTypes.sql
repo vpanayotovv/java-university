@@ -95,6 +95,9 @@ values
 (4,'Georgi','Terziev','Ivanov','CEO',2,'2007-12-09',3000.00),
 (5,'Peter','Pan','Pan','Intern',3,'2016-08-28',599.88);
 
-select * from towns;
-select * from departments;
-select * from employees;
+select * from towns
+order by name;
+select * from department
+order by name;
+select * from employees
+order by salary desc;
