@@ -62,3 +62,33 @@ select id, concat(first_name, ' ' ,last_name) as full_name , job_title, salary
 from employees
 where salary > 1000
 order by id;
+
+update employees
+set salary = salary + 100
+where job_title = 'Manager';
+
+create view v_top_paid_employee as
+select * from employees
+order by salary desc limit 1;
+
+select *
+from v_top_paid_employee;
+
+create table employee_salary
+select id,concat( first_name , ' ', last_name) as full_name, salary
+from employees
+order by salary desc;
+
+drop table employee_salary;
+
+select  *
+from employees
+where department_id = 4 and salary >= 1000
+order by id;
+
+delete from employees
+where department_id = 2 or department_id = 1;
+
+select *
+from employees
+order by id;
