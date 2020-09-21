@@ -45,10 +45,20 @@ CREATE TABLE clients (
 	room_id INT NOT NULL,
     CONSTRAINT fk_clients_rooms
     FOREIGN KEY (room_id)
-    REFERENCES rooms(id)x
+    REFERENCES rooms(id)
 );
 
 INSERT INTO clients(`first_name`,`last_name`,`room_id`) 
 VALUES('Pesho','Petrov', 1),('Gosho','Georgiev', 2),
 ('Mariya','Marieva', 2), ('Katya','Katerinova', 1), ('Nikolay','Nikolaev', 2);
 
+select * from employees;
+
+select id,first_name,last_name,job_title
+from employees
+order by id;
+
+select id, concat(first_name, ' ' ,last_name) as full_name , job_title, salary
+from employees
+where salary > 1000
+order by id;
