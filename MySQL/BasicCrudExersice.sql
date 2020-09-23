@@ -93,3 +93,25 @@ where department_id in (1,2,4,11);
 
 select salary
 from employees;
+
+use geography;
+
+select peak_name
+from peaks
+order by peak_name;
+
+select country_name,population
+from countries
+where continent_code = 'EU'
+order by population desc , country_name
+limit 30;
+
+select country_name,country_code,if(currency_code = 'EUR','Euro','Not Euro') as currency
+from countries
+order by country_name;
+
+use diablo;
+
+select name
+from characters
+order by name;
