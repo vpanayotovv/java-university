@@ -57,3 +57,39 @@ select first_name,last_name
 from employees
 order by salary desc limit 5;
 
+select *
+from employees
+order by salary desc, first_name,last_name desc ,middle_name;
+
+create view v_employees_salaries as
+    select first_name,last_name,salary
+from employees;
+
+select *
+from v_employees_salaries;
+
+create view v_employees_job_titles as
+    select concat_ws(' ',first_name,middle_name,last_name) as full_name ,job_title
+from employees;
+
+select *
+from v_employees_job_titles;
+
+select distinct job_title
+from employees
+order by job_title;
+
+select *
+from projects
+order by start_date,name,project_id limit 10;
+
+select first_name,last_name,hire_date
+from employees
+order by hire_date desc limit 7;
+
+update employees
+set salary = salary * 1.12
+where department_id in (1,2,4,11);
+
+select salary
+from employees;
