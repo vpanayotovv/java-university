@@ -43,3 +43,17 @@ where salary = 25000 or salary = 14000 or salary = 12500 or salary = 23600;
 select first_name,last_name
 from employees
 where manager_id is null;
+
+select first_name,last_name,salary
+from employees
+where salary > 50000
+order by salary desc;
+
+select first_name,last_name
+from employees
+where department_id != 4;
+
+select first_name,last_name
+from employees
+order by salary desc limit 5;
+
