@@ -89,4 +89,5 @@ from authors;
 
 select title
 from books
-where locate('Harry Potter',title) = 1;
+where title LIKE 'Harry Potter%'
+order by id;
