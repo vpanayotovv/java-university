@@ -89,5 +89,5 @@ from authors;
 
 select title
 from books
-where title LIKE 'Harry Potter%'
-order by id;
+where title LIKE 'harry potter%'
+order by year_of_release;
