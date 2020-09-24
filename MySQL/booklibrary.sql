@@ -69,3 +69,24 @@ INSERT INTO books(author_id,title, year_of_release,cost) VALUES
 	(9,'Fifty Shades of Grey','2011-00-00',13.99),	
 	(9,'Fifty Shades Darker','2012-00-00',13.99),	
 	(9,'Fifty Shades Freed','2012-00-00',13.99);
+
+select replace(title,'The','***')
+from books
+where substring(title,1,3) = 'The'
+order by id;
+
+select *
+from `books`
+where substring(`title`,1,3) = 'The'
+order by `id`;
+
+select sum(round(cost,2)) as 'Total'
+from books;
+
+select concat(first_name,' ',last_name) as 'Full Name',
+       timestampdiff(day,born,died) as 'Days Lived'
+from authors;
+
+select title
+from books
+where locate('Harry Potter',title) = 1;
