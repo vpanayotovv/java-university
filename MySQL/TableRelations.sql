@@ -38,8 +38,8 @@ values
 ('3','Lada','1966-05-01');
 
 create table models(
-    model_id int unique,
-    name varchar(10),
+    model_id int primary key ,
+    name varchar(10) unique,
     manufacturer_id int
 );
 
@@ -56,3 +56,50 @@ alter table models
 add constraint fk_models_manufacturers
 foreign key models(manufacturer_id)
 references manufacturers(manufacturer_id);
+
+create table exams(
+    exam_id int primary key,
+    name varchar(30)
+);
+
+create table students(
+    student_id int primary key,
+    name varchar(30)
+);
+
+create table students_exams(
+    student_id int,
+    exam_id int,
+
+    constraint pk_students_exams
+    primary key (student_id,exam_id),
+
+    constraint fk_students_exams_students
+    foreign key students_exams(student_id)
+    references students(student_id),
+
+    constraint fk_students_exams_exams
+    foreign key students_exams(exam_id)
+    references exams(exam_id)
+);
+
+insert into exams(exam_id, name)
+values
+('101','Spring MVC'),
+('102','Neo4j'),
+('103','Oracle 11g');
+
+insert into students(student_id, name)
+values
+('1','Mila'),
+('2','Toni'),
+('3','Ron');
+
+insert into students_exams(student_id, exam_id)
+values
+('1','101'),
+('1','102'),
+('2','101'),
+('3','103'),
+('2','102'),
+('2','103');
