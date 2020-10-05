@@ -156,3 +156,50 @@ create table order_items(
     foreign key (order_id)
     references orders(order_id)
 );
+
+create table subjects(
+    subject_id int(11) auto_increment primary key,
+    subject_name varchar(50)
+);
+
+create table majors(
+    major_id int(11) auto_increment primary key,
+    name varchar(50)
+);
+
+create table students(
+    student_id int(11) auto_increment primary key,
+    student_number varchar(12),
+    student_name varchar(50),
+    major_id int(11),
+    constraint fk_students_majors
+    foreign key (major_id)
+    references majors(major_id)
+);
+
+create table payments(
+    payment_id int(11) auto_increment primary key,
+    payment_date date,
+    payment_amount decimal(8,2),
+    student_id int(11),
+
+    constraint fk_payments_students
+    foreign key (student_id)
+    references students(student_id)
+);
+
+create table agenda(
+    student_id int(11),
+    subject_id int(11),
+
+    constraint pk_agenda
+    primary key (student_id,subject_id),
+
+    constraint fk_agenda_students
+    foreign key (student_id)
+    references students(student_id),
+
+    constraint fk_agenda_subjects
+    foreign key (subject_id)
+    references subjects(subject_id)
+);
