@@ -35,3 +35,22 @@ from employees as e join towns as t join addresses as a
 on e.address_id = a.address_id and t.town_id = a.town_id
 order by first_name,last_name
 limit 5;
+
+select e.employee_id,e.first_name,e.last_name,d.name
+from employees as e join departments as d
+on e.department_id = d.department_id
+where d.name = 'Sales'
+order by employee_id desc;
+
+select e.employee_id,e.first_name,e.salary,d.name
+from employees as e join departments as d
+on e.department_id = d.department_id
+where salary > '15000'
+order by d.department_id desc
+limit 5;
+
+select e.employee_id , e.first_name
+from employees as e left join employees_projects as p
+on e.employee_id = p.employee_id
+where project_id is null
+order by employee_id desc;
