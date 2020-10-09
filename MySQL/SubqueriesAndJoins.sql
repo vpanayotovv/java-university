@@ -23,3 +23,8 @@ where salary > (
 select employee_id,first_name,last_name,department_id,salary
 from employees
 where manager_id IS null;
+
+select e.employee_id , e.job_title,a.address_id,a.address_text
+from employees as e join addresses as a
+on e.address_id = a.address_id
+order by address_id;
