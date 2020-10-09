@@ -27,4 +27,11 @@ where manager_id IS null;
 select e.employee_id , e.job_title,a.address_id,a.address_text
 from employees as e join addresses as a
 on e.address_id = a.address_id
-order by address_id;
+order by address_id
+limit 5;
+
+select first_name,last_name,name as town,address_text
+from employees as e join towns as t join addresses as a
+on e.address_id = a.address_id and t.town_id = a.town_id
+order by first_name,last_name
+limit 5;
