@@ -81,3 +81,9 @@ join projects as p
 on ep.project_id = p.project_id
 where e.employee_id = 24
 order by project_name;
+
+select e.employee_id ,e.first_name,m.employee_id,m.first_name as manager_name
+from employees as e join employees as m
+on e.manager_id = m.employee_id
+where e.manager_id in (3,7)
+order by first_name;
