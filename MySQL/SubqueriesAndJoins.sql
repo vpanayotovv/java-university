@@ -59,7 +59,7 @@ limit 3;
 select e.first_name,e.last_name,e.hire_date,d.name as dept_name
 from employees e join departments d
 on e.department_id = d.department_id
-where e.hire_date > '1999-01-01' and d.name in ('Sales','Finance')
+where date(e.hire_date) > '1999-01-01' and d.name in ('Sales','Finance')
 order by hire_date;
 
 select e.employee_id, e.first_name,p.name as project_name
@@ -68,7 +68,7 @@ join employees_projects as ep
 on e.employee_id = ep.employee_id
 join projects as p
 on ep.project_id = p.project_id
-where p.start_date > '2002-08-13' and p.end_date is null
+where date(p.start_date) > '2002-08-13' and p.end_date is null
 order by e.first_name , project_name
 limit 5;
 
