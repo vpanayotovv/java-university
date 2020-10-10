@@ -83,7 +83,49 @@ where e.employee_id = 24
 order by project_name;
 
 select e.employee_id ,e.first_name,m.employee_id,m.first_name as manager_name
-from employees as e join employees as m
+from employees as e
+join employees as m
 on e.manager_id = m.employee_id
 where e.manager_id in (3,7)
 order by first_name;
+
+select e.employee_id ,concat(e.first_name,' ',e.last_name) as employee_name ,
+      concat(m.first_name,' ',m.last_name) as manager_name , d.name
+from employees e
+join employees m
+on e.manager_id= m.employee_id
+join departments d
+on e.department_id = d.department_id
+order by e.employee_id
+limit 5;
+
+select avg(salary) as min_average_salary
+from employees as e
+join departments as d
+on e.department_id = d.department_id
+group by e.department_id
+order by min_average_salary
+limit 1;
+
+use geography;
+
+select c.country_code,m.mountain_range,p.peak_name,p.elevation
+from countries as c
+join mountains_countries as mc
+on c.country_code = mc.country_code
+join mountains as m
+on mc.mountain_id = m.id
+join peaks as p
+on mc.mountain_id = p.mountain_id
+where c.country_code  = 'BG'
+order by p.elevation desc
+
+select c.country_code,count(m.mountain_range) as mountain_range
+from countries as c
+join mountains_countries as mc
+on c.country_code = mc.country_code
+join mountains as m
+on mc.mountain_id = m.id
+where c.country_code in ('BG','RU','US')
+group by c.country_code
+order by mountain_range desc;
