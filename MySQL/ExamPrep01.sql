@@ -102,3 +102,30 @@ insert into coaches(first_name, last_name, salary, coach_level)
 select first_name,last_name,salary,char_length(first_name)
 from players
 where age >= 45;
+
+update coaches as c
+join players_coaches pc
+on c.id = pc.coach_id
+set coach_level = coach_level + 1
+where c.id = pc.coach_id and left(c.first_name,1) = 'A';
+
+delete from players
+where age >= 45;
+
+
+select first_name,age,salary
+from players
+order by salary desc;
+
+select p.id,concat(first_name,' ',last_name) as full_name,age , position ,hire_date
+from players as p
+join skills_data sd on sd.id = p.skills_data_id
+where p.age < 23 and position = 'A' and hire_date is null and sd.strength > 50
+order by p.salary , age;
+
+SELECT t.name ,t.established, t.fan_base,count(p.id) as players_count
+from teams as t
+left join players p
+on t.id = p.team_id
+group by t.id , t.fan_base
+order by players_count desc ,t.fan_base desc;
