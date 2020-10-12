@@ -97,3 +97,8 @@ create table players_coaches
         foreign key (coach_id)
             references coaches (id)
 );
+
+insert into coaches(first_name, last_name, salary, coach_level)
+select first_name,last_name,salary,char_length(first_name)
+from players
+where age >= 45;
