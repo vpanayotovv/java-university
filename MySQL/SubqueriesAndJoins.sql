@@ -117,8 +117,8 @@ join mountains as m
 on mc.mountain_id = m.id
 join peaks as p
 on mc.mountain_id = p.mountain_id
-where c.country_code  = 'BG'
-order by p.elevation desc
+where c.country_code  = 'BG'  and elevation > 2835
+order by p.elevation desc;
 
 select c.country_code,count(m.mountain_range) as mountain_range
 from countries as c
@@ -129,3 +129,13 @@ on mc.mountain_id = m.id
 where c.country_code in ('BG','RU','US')
 group by c.country_code
 order by mountain_range desc;
+
+select c.country_name , r.river_name
+from countries c
+left join countries_rivers cr
+on c.country_code = cr.country_code
+left join rivers r
+on cr.river_id = r.id
+where c.continent_code = 'AF'
+order by c.country_name
+limit 5;
