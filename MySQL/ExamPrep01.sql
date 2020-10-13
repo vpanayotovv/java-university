@@ -99,33 +99,82 @@ create table players_coaches
 );
 
 insert into coaches(first_name, last_name, salary, coach_level)
-select first_name,last_name,salary,char_length(first_name)
+select first_name, last_name, salary, char_length(first_name)
 from players
 where age >= 45;
 
 update coaches as c
-join players_coaches pc
-on c.id = pc.coach_id
+    join players_coaches pc
+    on c.id = pc.coach_id
 set coach_level = coach_level + 1
-where c.id = pc.coach_id and left(c.first_name,1) = 'A';
+where c.id = pc.coach_id
+  and left(c.first_name, 1) = 'A';
 
-delete from players
+delete
+from players
 where age >= 45;
 
 
-select first_name,age,salary
+select first_name, age, salary
 from players
 order by salary desc;
 
-select p.id,concat(first_name,' ',last_name) as full_name,age , position ,hire_date
+select p.id, concat(first_name, ' ', last_name) as full_name, age, position, hire_date
 from players as p
-join skills_data sd on sd.id = p.skills_data_id
-where p.age < 23 and position = 'A' and hire_date is null and sd.strength > 50
-order by p.salary , age;
+         join skills_data sd on sd.id = p.skills_data_id
+where p.age < 23
+  and position = 'A'
+  and hire_date is null
+  and sd.strength > 50
+order by p.salary, age;
 
-SELECT t.name ,t.established, t.fan_base,count(p.id) as players_count
+SELECT t.name, t.established, t.fan_base, count(p.id) as players_count
 from teams as t
-left join players p
-on t.id = p.team_id
-group by t.id , t.fan_base
-order by players_count desc ,t.fan_base desc;
+         left join players p
+                   on t.id = p.team_id
+group by t.id, t.fan_base
+order by players_count desc, t.fan_base desc;
+
+select max(sd.speed) as speed, t.name
+from towns as t
+         left join stadiums as s
+                   on t.id = s.town_id
+         left join teams as te
+                   on s.id = te.stadium_id
+         left join players as p
+                   on te.id = p.team_id
+         left join skills_data as sd
+                   on p.skills_data_id = sd.id
+where te.name != 'Devify'
+group by t.name
+order by speed desc, t.name;
+
+select c.name , count(p.id) as total_count_of_players , sum(salary) as total_sum_of_salaries
+from countries as c
+         left join towns t
+                   on c.id = t.country_id
+         left join stadiums s
+                   on t.id = s.town_id
+         left join teams as te
+                   on s.id = te.stadium_id
+        left join players p on te.id = p.team_id
+group by c.name
+order by total_count_of_players desc ,c.name;
+
+create function udf_stadium_players_count(stadium_name varchar(30))
+returns int deterministic
+begin
+    declare result int;
+    set result := (
+        select count(p.id)
+from stadiums as s
+left join countries c
+on s.name = c.name
+left join teams t
+on s.id = t.stadium_id
+left join players p on t.id = p.team_id
+where s.name = stadium_name
+group by s.name
+        );
+    return result;
+end;
