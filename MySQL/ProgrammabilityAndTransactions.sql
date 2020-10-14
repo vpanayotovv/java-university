@@ -25,3 +25,23 @@ drop procedure ups_select_employees_by_seniority;
 
 CALL ups_select_employees_by_seniority(18);
 
+create procedure usp_raise_salaries(department_name varchar(50))
+begin
+    update employees as e join departments as d using (department_id)
+    set salary = salary * 1.05
+    where d.name = department_name;
+end;
+
+call usp_raise_salaries('Sales');
+
+create procedure usp_raise_salary_by_id(id int)
+begin
+    update employees as e
+set salary = salary * 1.05
+where employee_id = id;
+end;
+
+call usp_raise_salary_by_id(1);
+
+select employee_id,first_name,salary
+from employees;
