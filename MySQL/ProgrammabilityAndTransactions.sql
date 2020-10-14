@@ -74,11 +74,36 @@ create trigger tr_deleted_employees
     after delete
     on employees
     for each row
-    begin
-        insert into deleted_employees(employee_id, first_name, last_name, middle_name, job_title, department_id, salary)
-        values (old.employee_id,old.first_name,old.last_name,old.middle_name,old.job_title,old.department_id,old.salary);
-    end;
+begin
+    insert into deleted_employees(employee_id, first_name, last_name, middle_name, job_title, department_id, salary)
+    values (old.employee_id, old.first_name, old.last_name, old.middle_name, old.job_title, old.department_id,
+            old.salary);
+end;
 
-delete from employees
+delete
+from employees
 where employee_id > 200;
 
+create procedure usp_get_employees_salary_above_35000()
+begin
+    select first_name, last_name
+    from employees
+    where salary > 35000
+    order by first_name, last_name, employee_id;
+end;
+
+create procedure usp_get_employees_salary_above(min_salary decimal(19, 4))
+begin
+    select first_name, last_name
+    from employees
+    where salary >= min_salary
+    order by first_name, last_name, employee_id;
+end;
+
+create procedure usp_get_towns_starting_with(str varchar(50))
+begin
+    select name
+    from towns
+    where name like concat(str,'%')
+    order by name;
+end;
