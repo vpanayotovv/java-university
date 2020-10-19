@@ -116,3 +116,9 @@ left join comments c on p.id = c.photo_id
 group by p.id
 order by likes_count desc,comments_count desc , p.id;
 
+select concat(substring(description,1,30),'...') as summary ,date
+from photos
+where day(date) =  10
+order by date desc;
+
+
