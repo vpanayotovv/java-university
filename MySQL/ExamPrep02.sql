@@ -109,4 +109,10 @@ from users as u
 where up.photo_id = up.user_id
 order by u.id;
 
+select p.id,count(distinct l.id) as likes_count,count(distinct c.id) comments_count
+from photos as p
+left join likes l on p.id = l.photo_id
+left join comments c on p.id = c.photo_id
+group by p.id
+order by likes_count desc,comments_count desc , p.id;
 
