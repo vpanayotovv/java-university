@@ -50,7 +50,7 @@ public class Main {
         salaryInt = Double.parseDouble(salary);
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("select * from soft_uni.employees where salary > ? order by employee_id");
+            PreparedStatement stmt = connection.prepareStatement("select * from employees where salary > ? order by employee_id");
 
             stmt.setDouble(1,salaryInt);
             ResultSet rs = stmt.executeQuery();
