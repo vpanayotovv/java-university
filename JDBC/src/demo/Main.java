@@ -5,9 +5,9 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class Main {
-    public static String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static String DB_URL = "jdbc:mysql://localhost:3306/soft_uni";
-    public static String SQL_QUERY = "select * from employees where salary > ? order by employee_id";
+    private final static String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final static String DB_URL = "jdbc:mysql://localhost:3306/soft_uni";
+    private final static String SQL_QUERY = "select * from employees where salary > ? order by employee_id";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
