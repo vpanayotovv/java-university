@@ -39,16 +39,16 @@ public class Main {
             System.out.println("Connection created successfully!");
 
             System.out.println("Enter minimum Salary:");
-            String salary = scanner.nextLine().trim();
-            salary = salary.length() > 0 ? salary : "40000";
-            double salaryInt;
+            String salaryString = scanner.nextLine().trim();
+            salaryString = salaryString.length() > 0 ? salaryString : "40000";
+            double salary;
 
-            salaryInt = Double.parseDouble(salary);
+            salary = Double.parseDouble(salaryString);
 
             PreparedStatement stmt =
                     connection.prepareStatement(SQL_QUERY);
 
-            stmt.setDouble(1, salaryInt);
+            stmt.setDouble(1, salary);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -56,7 +56,7 @@ public class Main {
                         rs.getLong("employee_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
-                        rs.getDouble("salary")
+                        rs.getDouble("salaryString")
                 );
             }
 
