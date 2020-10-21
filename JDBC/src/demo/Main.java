@@ -17,7 +17,6 @@ public class Main {
         String password = scanner.nextLine().trim();
         password = password.length() > 0 ? password : "";
 
-        Connection connection = null;
 
         try {
             Class.forName(DB_DRIVER);
@@ -33,45 +32,38 @@ public class Main {
         properties.setProperty("user", username);
         properties.setProperty("password", password);
 
-        try {
-            connection = DriverManager.getConnection(DB_URL, properties);
-        } catch (SQLException e) {
-            System.out.println("Cannot connect DB!");
-            System.exit(0);
-        }
+        try (Connection connection = DriverManager.getConnection(DB_URL, properties)) {
 
-        System.out.println("Connection created successfully!");
 
-        System.out.println("Enter minimum Salary:");
-        String salary = scanner.nextLine().trim();
-        salary = salary.length() > 0 ? salary : "40000";
-        double salaryInt = 40000;
+            System.out.println("Connection created successfully!");
 
-        salaryInt = Double.parseDouble(salary);
+            System.out.println("Enter minimum Salary:");
+            String salary = scanner.nextLine().trim();
+            salary = salary.length() > 0 ? salary : "40000";
+            double salaryInt;
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement("select * from employees where salary > ? order by employee_id");
+            salaryInt = Double.parseDouble(salary);
 
-            stmt.setDouble(1,salaryInt);
+            PreparedStatement stmt =
+                    connection.prepareStatement(
+                            "select * from employees where salary > ? order by employee_id"
+                    );
+
+            stmt.setDouble(1, salaryInt);
             ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 System.out.printf("| %10d | %-15.15s | %-15.15s | %10.2f |%n",
                         rs.getLong("employee_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
                         rs.getDouble("salary")
-                        );
+                );
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        try {
-            connection.close();
         } catch (SQLException e) {
-            System.out.println("Error closing connection!");
+            System.out.println(e.getMessage());
         }
     }
 }
