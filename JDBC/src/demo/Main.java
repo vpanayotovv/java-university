@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static String DB_URL = "jdbc:mysql://localhost:3306/soft_uni";
+    public static String SQL_QUERY = "select * from employees where salary > ? order by employee_id";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -45,9 +46,7 @@ public class Main {
             salaryInt = Double.parseDouble(salary);
 
             PreparedStatement stmt =
-                    connection.prepareStatement(
-                            "select * from employees where salary > ? order by employee_id"
-                    );
+                    connection.prepareStatement(SQL_QUERY);
 
             stmt.setDouble(1, salaryInt);
             ResultSet rs = stmt.executeQuery();
