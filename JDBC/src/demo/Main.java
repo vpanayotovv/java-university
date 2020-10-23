@@ -47,7 +47,6 @@ public class Main {
 
             PreparedStatement stmt =
                     connection.prepareStatement(SQL_QUERY);
-
             stmt.setDouble(1, salary);
             ResultSet rs = stmt.executeQuery();
 
@@ -56,7 +55,7 @@ public class Main {
                         rs.getLong("employee_id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
-                        rs.getDouble("salaryString")
+                        rs.getDouble("salary")
                 );
             }
 
