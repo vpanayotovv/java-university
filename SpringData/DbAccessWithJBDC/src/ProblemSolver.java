@@ -13,7 +13,7 @@ class ProblemSolver {
     private Connection connection;
 
 
-    public void setConnection(String username, String password) throws SQLException {
+    void setConnection(String username, String password) throws SQLException {
         Properties properties = new Properties();
         properties.setProperty("user", username);
         properties.setProperty("password", password);
@@ -22,7 +22,7 @@ class ProblemSolver {
 
     }
 
-    public void getVillainsNamesPr02() throws SQLException {
+    void getVillainsNamesPr02() throws SQLException {
         String query = "select name , count(minion_id) as count " +
                 "from villains as v " +
                 "join minions_villains v2 on v.id = v2.villain_id " +
@@ -39,7 +39,7 @@ class ProblemSolver {
         }
     }
 
-    public void getMinionNamesPr03() throws SQLException {
+    void getMinionNamesPr03() throws SQLException {
         scanner = new Scanner(System.in);
         System.out.println("Enter Villain ID:");
         int id = Integer.parseInt(scanner.nextLine());
@@ -64,7 +64,7 @@ class ProblemSolver {
         }
     }
 
-    public void addMinionPr04() throws SQLException {
+    void addMinionPr04() throws SQLException {
         System.out.println("Minion:");
         scanner = new Scanner(System.in);
         String[] minionInfo = scanner.nextLine().split("\\s+");
@@ -98,7 +98,7 @@ class ProblemSolver {
 
     }
 
-    public void changeTownNamesCasingPr05() throws SQLException {
+    void changeTownNamesCasingPr05() throws SQLException {
         scanner = new Scanner(System.in);
         System.out.println("Enter Country name:");
         String countryName = scanner.nextLine();
@@ -113,7 +113,7 @@ class ProblemSolver {
         }
     }
 
-    public void removeVillainPr06() throws SQLException {
+    void removeVillainPr06() throws SQLException {
         scanner = new Scanner(System.in);
         System.out.println("Enter Villain ID:");
         int id = Integer.parseInt(scanner.nextLine());
@@ -133,6 +133,31 @@ class ProblemSolver {
         }
 
 
+    }
+
+    void increaseAgeStoredProcedurePr09() throws SQLException {
+        scanner = new Scanner(System.in);
+        System.out.println("Enter Minion ID:");
+        int minionId = Integer.parseInt(scanner.nextLine());
+
+        if (isMinionExist(minionId)) {
+            callStoredProcedure(minionId);
+            printResult(minionId);
+
+        } else {
+            throw new SQLException("Try Again With Existing ID");
+        }
+
+    }
+
+    private void printResult(int minionId) throws SQLException {
+        String query = "select name , age from minions where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, minionId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            System.out.printf("%s %d", resultSet.getString("name"), resultSet.getInt("age"));
+        }
     }
 
     private int getEntityIdByName(String entityName, String tableName) throws SQLException {
@@ -209,31 +234,10 @@ class ProblemSolver {
         return resultSet.next();
     }
 
-    public void increaseAgeStoredProcedurePr09() throws SQLException {
-        scanner = new Scanner(System.in);
-        System.out.println("Enter Minion ID:");
-        int minionId = Integer.parseInt(scanner.nextLine());
-
-        if (isMinionExist(minionId)){
-            callStoredProcedure(minionId);
-            String query = "select name , age from minions where id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,minionId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                System.out.printf("%s %d", resultSet.getString("name"), resultSet.getInt("age"));
-            }
-
-        }else {
-            throw new SQLException("Try Again With Existing ID");
-        }
-
-    }
-
     private void callStoredProcedure(int minionId) throws SQLException {
         String query = "call usp_get_older(?)";
         CallableStatement callableStatement = connection.prepareCall(query);
-        callableStatement.setInt(1,minionId);
+        callableStatement.setInt(1, minionId);
         callableStatement.execute();
     }
 
