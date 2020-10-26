@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -247,5 +249,20 @@ class ProblemSolver {
         preparedStatement.setInt(1, minionId);
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet.next();
+    }
+
+    void printAllMinionNamesPr07() throws SQLException {
+        String query = "select name from minions";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<String> list = new ArrayList<>();
+        while (resultSet.next()){
+            list.add(resultSet.getString("name"));
+        }
+
+        for (int i = 0; i < list.size() / 2; i++) {
+            System.out.println(list.get(i));
+            System.out.println(list.get(list.size()-1-i));
+        }
     }
 }
