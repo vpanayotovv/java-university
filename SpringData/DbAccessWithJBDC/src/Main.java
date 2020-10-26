@@ -36,6 +36,9 @@ public class Main {
                 case "6":
                     problemSolver.removeVillainPr06();
                     break;
+                case "9":
+                    problemSolver.increaseAgeStoredProcedurePr09();
+                    break;
             }
 
         } catch (IllegalArgumentException | SQLException ex) {

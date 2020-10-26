@@ -208,4 +208,40 @@ class ProblemSolver {
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet.next();
     }
+
+    public void increaseAgeStoredProcedurePr09() throws SQLException {
+        scanner = new Scanner(System.in);
+        System.out.println("Enter Minion ID:");
+        int minionId = Integer.parseInt(scanner.nextLine());
+
+        if (isMinionExist(minionId)){
+            callStoredProcedure(minionId);
+            String query = "select name , age from minions where id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,minionId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                System.out.printf("%s %d", resultSet.getString("name"), resultSet.getInt("age"));
+            }
+
+        }else {
+            throw new SQLException("Try Again With Existing ID");
+        }
+
+    }
+
+    private void callStoredProcedure(int minionId) throws SQLException {
+        String query = "call usp_get_older(?)";
+        CallableStatement callableStatement = connection.prepareCall(query);
+        callableStatement.setInt(1,minionId);
+        callableStatement.execute();
+    }
+
+    private boolean isMinionExist(int minionId) throws SQLException {
+        String query = "select name from minions where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, minionId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        return resultSet.next();
+    }
 }
