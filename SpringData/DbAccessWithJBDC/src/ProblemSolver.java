@@ -13,29 +13,6 @@ class ProblemSolver {
     private Connection connection;
 
 
-    private String getEntityNameById(int entityID, String tableName) throws SQLException {
-        String query = String.format("select name " +
-                "from %s " +
-                "where id = ?", tableName);
-
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, entityID);
-
-        ResultSet resultSet = ps.executeQuery();
-
-        return resultSet.next() ? resultSet.getString("name") : null;
-
-    }
-
-    private int getEntityIdByName(String entityName, String tableName) throws SQLException {
-        String query = String.format("select id from %s where name = ?", tableName);
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, entityName);
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        return resultSet.next() ? resultSet.getInt(1) : -1;
-    }
-
     public void setConnection(String username, String password) throws SQLException {
         Properties properties = new Properties();
         properties.setProperty("user", username);
@@ -69,7 +46,7 @@ class ProblemSolver {
 
         String villainName = getEntityNameById(id, "villains");
         if (villainName == null) {
-           throw new SQLException("No villain with ID " + id + " exists in the database.");
+            throw new SQLException("No villain with ID " + id + " exists in the database.");
         }
 
         String query = "select m.name ,m.age " +
@@ -99,24 +76,24 @@ class ProblemSolver {
 
         int townId = getEntityIdByName(townName, "towns");
 
-        if (townId == -1){
+        if (townId == -1) {
             insertInTable(townName);
-            throw new SQLException(String.format("Town %s was added to the database.",townName));
+            throw new SQLException(String.format("Town %s was added to the database.", townName));
         }
 
         int minionId = getEntityIdByName(name, "minions");
 
-        if (minionId == -1){
-            insertInTable(name,age,townName);
-            throw new SQLException(String.format("Successfully added %s to be minion of %s.",name,villainName));
+        if (minionId == -1) {
+            insertInTable(name, age, townName);
+            throw new SQLException(String.format("Successfully added %s to be minion of %s.", name, villainName));
         }
 
 
-        if (isVillainExist(villainName)){
+        if (isVillainExist(villainName)) {
             //TODO:Can't handle this case :(
-        }else {
+        } else {
             insertInTableVillain(villainName);
-            throw new SQLException(String.format("Villain %s was added to the database.",villainName));
+            throw new SQLException(String.format("Villain %s was added to the database.", villainName));
         }
 
     }
@@ -127,26 +104,13 @@ class ProblemSolver {
         String countryName = scanner.nextLine();
         String query = "update towns set name = upper(name) where country = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1,countryName);
+        preparedStatement.setString(1, countryName);
         int effectedRow = preparedStatement.executeUpdate();
         if (effectedRow > 0) {
-            throw new SQLException(String.format("%d town names were affected.%n%s",effectedRow, printEffectedRows(countryName)));
-        }else {
+            throw new SQLException(String.format("%d town names were affected.%n%s", effectedRow, printEffectedRows(countryName)));
+        } else {
             throw new SQLException("No town names were affected.");
         }
-    }
-
-    private String printEffectedRows(String countryName) throws SQLException {
-        StringBuilder builder = new StringBuilder();
-        String query = "Select * from towns where country = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1,countryName);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        builder.append("[");
-        while (resultSet.next()){
-            builder.append(resultSet.getString("name")).append(", ");
-        }
-        return builder.replace(builder.length()-2,builder.length(),"]").toString();
     }
 
     public void problem06() throws SQLException {
@@ -156,56 +120,91 @@ class ProblemSolver {
 
         String villainName = getEntityNameById(id, "villains");
 
-        if (villainName == null){
+        if (villainName == null) {
             throw new SQLException("No such villain was found");
-        }else {
+        } else {
             String query = "delete from minions_villains where villain_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            preparedStatement.setInt(1, id);
             int rowsRemoved = preparedStatement.executeUpdate();
             removeVillain(id);
             throw new SQLException(String.format("%s was deleted\n" +
-                    "%d minions released",villainName,rowsRemoved));
+                    "%d minions released", villainName, rowsRemoved));
         }
 
 
+    }
 
+    private int getEntityIdByName(String entityName, String tableName) throws SQLException {
+        String query = String.format("select id from %s where name = ?", tableName);
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, entityName);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return resultSet.next() ? resultSet.getInt(1) : -1;
+    }
+
+    private String getEntityNameById(int entityID, String tableName) throws SQLException {
+        String query = String.format("select name " +
+                "from %s " +
+                "where id = ?", tableName);
+
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setInt(1, entityID);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        return resultSet.next() ? resultSet.getString("name") : null;
+
+    }
+
+    private String printEffectedRows(String countryName) throws SQLException {
+        StringBuilder builder = new StringBuilder();
+        String query = "Select * from towns where country = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, countryName);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        builder.append("[");
+        while (resultSet.next()) {
+            builder.append(resultSet.getString("name")).append(", ");
+        }
+        return builder.replace(builder.length() - 2, builder.length(), "]").toString();
     }
 
     private void removeVillain(int id) throws SQLException {
         String query = "delete from villains where id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1,id);
+        preparedStatement.setInt(1, id);
         preparedStatement.execute();
     }
 
     private void insertInTableVillain(String villainName) throws SQLException {
         String query = "insert into villains(name,evilness_factor) value(?,'evil')";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1,villainName);
+        preparedStatement.setString(1, villainName);
         preparedStatement.execute();
     }
 
-    private void insertInTable(String minionName , int age,String townName) throws SQLException {
+    private void insertInTable(String minionName, int age, String townName) throws SQLException {
         String query = "insert into minions(name,age,town_id) value(?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1,minionName);
-        preparedStatement.setInt(2,age);
-        preparedStatement.setInt(3,getEntityIdByName(townName,"towns"));
+        preparedStatement.setString(1, minionName);
+        preparedStatement.setInt(2, age);
+        preparedStatement.setInt(3, getEntityIdByName(townName, "towns"));
         preparedStatement.execute();
     }
 
     private void insertInTable(String townName) throws SQLException {
         String query = "insert into towns(name) value(?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1,townName);
+        preparedStatement.setString(1, townName);
         preparedStatement.execute();
     }
 
     private boolean isVillainExist(String name) throws SQLException {
         String query = "select name from villains where name = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1,name);
+        preparedStatement.setString(1, name);
         ResultSet resultSet = preparedStatement.executeQuery();
         return resultSet.next();
     }
