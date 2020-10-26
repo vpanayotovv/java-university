@@ -1,20 +1,41 @@
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Main{
-    public static void main(String[] args) throws SQLException {
-
+public class Main {
+    public static void main(String[] args) {
         ProblemSolver problemSolver = new ProblemSolver();
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Enter username:");
-//        String username = scanner.nextLine();
-//
-//        System.out.println("Enter password:");
-//        String password = scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
 
-        problemSolver.setConnection("vasko","vasko");
-        //problemSolver.problem02();
-        problemSolver.problem03();
+        System.out.println("Enter username for your DB:");
+        String username = scanner.nextLine();
+
+
+        System.out.println("Enter password for your DB:");
+        String password = scanner.nextLine();
+
+        try {
+            UserPasswordRepo repo = new UserPasswordRepo(username, password);
+            problemSolver.setConnection(repo.getUsername(), repo.getPassword());
+            System.out.println("Enter number of problem u wanna check:");
+
+            String numberOfProblem = scanner.nextLine();
+
+            switch (numberOfProblem) {
+                case "2":
+                    problemSolver.problem02();
+                    break;
+                case "3":
+                    problemSolver.problem03();
+                    break;
+                case "4":
+                    problemSolver.problem04();
+                    break;
+            }
+
+        } catch (IllegalArgumentException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+
     }
 }
