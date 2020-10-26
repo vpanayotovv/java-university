@@ -121,6 +121,64 @@ class ProblemSolver {
 
     }
 
+    public void problem05() throws SQLException {
+        scanner = new Scanner(System.in);
+        System.out.println("Enter Country name:");
+        String countryName = scanner.nextLine();
+        String query = "update towns set name = upper(name) where country = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,countryName);
+        int effectedRow = preparedStatement.executeUpdate();
+        if (effectedRow > 0) {
+            throw new SQLException(String.format("%d town names were affected.%n%s",effectedRow, printEffectedRows(countryName)));
+        }else {
+            throw new SQLException("No town names were affected.");
+        }
+    }
+
+    private String printEffectedRows(String countryName) throws SQLException {
+        StringBuilder builder = new StringBuilder();
+        String query = "Select * from towns where country = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1,countryName);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        builder.append("[");
+        while (resultSet.next()){
+            builder.append(resultSet.getString("name")).append(", ");
+        }
+        return builder.replace(builder.length()-2,builder.length(),"]").toString();
+    }
+
+    public void problem06() throws SQLException {
+        scanner = new Scanner(System.in);
+        System.out.println("Enter Villain ID:");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        String villainName = getEntityNameById(id, "villains");
+
+        if (villainName == null){
+            throw new SQLException("No such villain was found");
+        }else {
+            String query = "delete from minions_villains where villain_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,id);
+            int rowsRemoved = preparedStatement.executeUpdate();
+            removeVillain(id);
+            throw new SQLException(String.format("%s was deleted\n" +
+                    "%d minions released",villainName,rowsRemoved));
+        }
+
+
+
+    }
+
+    private void removeVillain(int id) throws SQLException {
+        String query = "delete from villains where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1,id);
+        preparedStatement.execute();
+    }
+
     private void insertInTableVillain(String villainName) throws SQLException {
         String query = "insert into villains(name,evilness_factor) value(?,'evil')";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

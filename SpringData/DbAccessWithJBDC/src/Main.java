@@ -30,6 +30,12 @@ public class Main {
                 case "4":
                     problemSolver.problem04();
                     break;
+                case "5":
+                    problemSolver.problem05();
+                    break;
+                case "6":
+                    problemSolver.problem06();
+                    break;
             }
 
         } catch (IllegalArgumentException | SQLException ex) {
