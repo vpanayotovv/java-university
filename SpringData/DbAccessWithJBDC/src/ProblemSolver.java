@@ -22,7 +22,7 @@ class ProblemSolver {
 
     }
 
-    public void problem02() throws SQLException {
+    public void getVillainsNamesPr02() throws SQLException {
         String query = "select name , count(minion_id) as count " +
                 "from villains as v " +
                 "join minions_villains v2 on v.id = v2.villain_id " +
@@ -39,7 +39,7 @@ class ProblemSolver {
         }
     }
 
-    public void problem03() throws SQLException {
+    public void getMinionNamesPr03() throws SQLException {
         scanner = new Scanner(System.in);
         System.out.println("Enter Villain ID:");
         int id = Integer.parseInt(scanner.nextLine());
@@ -64,7 +64,7 @@ class ProblemSolver {
         }
     }
 
-    public void problem04() throws SQLException {
+    public void addMinionPr04() throws SQLException {
         System.out.println("Minion:");
         scanner = new Scanner(System.in);
         String[] minionInfo = scanner.nextLine().split("\\s+");
@@ -98,7 +98,7 @@ class ProblemSolver {
 
     }
 
-    public void problem05() throws SQLException {
+    public void changeTownNamesCasingPr05() throws SQLException {
         scanner = new Scanner(System.in);
         System.out.println("Enter Country name:");
         String countryName = scanner.nextLine();
@@ -113,7 +113,7 @@ class ProblemSolver {
         }
     }
 
-    public void problem06() throws SQLException {
+    public void removeVillainPr06() throws SQLException {
         scanner = new Scanner(System.in);
         System.out.println("Enter Villain ID:");
         int id = Integer.parseInt(scanner.nextLine());

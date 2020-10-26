@@ -22,19 +22,19 @@ public class Main {
 
             switch (numberOfProblem) {
                 case "2":
-                    problemSolver.problem02();
+                    problemSolver.getVillainsNamesPr02();
                     break;
                 case "3":
-                    problemSolver.problem03();
+                    problemSolver.getMinionNamesPr03();
                     break;
                 case "4":
-                    problemSolver.problem04();
+                    problemSolver.addMinionPr04();
                     break;
                 case "5":
-                    problemSolver.problem05();
+                    problemSolver.changeTownNamesCasingPr05();
                     break;
                 case "6":
-                    problemSolver.problem06();
+                    problemSolver.removeVillainPr06();
                     break;
             }
 
