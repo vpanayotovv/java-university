@@ -1,13 +1,15 @@
 package entities;
 
+import java.util.Date;
+
 public class User {
              private int id;
              private String username;
              private String password;
              private int age;
-             private String registrationDate;
+             private Date registrationDate;
 
-    public User(int id, String username, String password, int age, String registrationDate) {
+    public User(int id, String username, String password, int age, Date registrationDate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -31,7 +33,7 @@ public class User {
         this.age = age;
     }
 
-    public void setRegistrationDate(String registrationDate) {
+    public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
@@ -51,7 +53,7 @@ public class User {
         return this.age;
     }
 
-    public String getRegistrationDate() {
+    public Date getRegistrationDate() {
         return this.registrationDate;
     }
 
