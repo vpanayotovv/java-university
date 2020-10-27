@@ -14,8 +14,13 @@ public class EntityManager implements DbContext {
         this.connection = connection;
     }
 
-    public boolean persist(Object entity) {
-        return false;
+    public boolean persist(Object entity) throws IllegalAccessException {
+        Field primary = getIdField(entity.getClass());
+        primary.setAccessible(true);
+        Object value = primary.get(entity);
+
+        return (value != null && (int) value > 0) ?
+                doUpdate(entity, primary) : doInsert(entity, primary);
     }
 
     public Iterable find(Class table) {
@@ -34,7 +39,15 @@ public class EntityManager implements DbContext {
         return null;
     }
 
-    private Field getIdField(Class entity){
+    private boolean doUpdate(Object entity, Field primary) {
+        return false;
+    }
+
+    private boolean doInsert(Object entity, Field primary) {
+        return false;
+    }
+
+    private Field getIdField(Class entity) {
         return Arrays.stream(entity
                 .getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(Id.class))
