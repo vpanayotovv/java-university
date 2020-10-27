@@ -1,13 +1,23 @@
 package entities;
 
+import orm.annotations.Column;
+import orm.annotations.Entity;
+import orm.annotations.Id;
+
 import java.util.Date;
 
+@Entity(name = "USERS")
 public class User {
-             private int id;
-             private String username;
-             private String password;
-             private int age;
-             private Date registrationDate;
+    @Id
+    private int id;
+    @Column(name="username")
+    private String username;
+    @Column(name="password")
+    private String password;
+    @Column(name="age")
+    private int age;
+    @Column(name="registrationDate")
+    private Date registrationDate;
 
     public User(int id, String username, String password, int age, Date registrationDate) {
         this.id = id;
