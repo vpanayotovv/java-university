@@ -1,6 +1,10 @@
 package orm;
 
+import orm.annotations.Id;
+
+import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.util.Arrays;
 
 public class EntityManager implements DbContext {
 
@@ -28,5 +32,13 @@ public class EntityManager implements DbContext {
 
     public Object findFirst(Class table, String where) {
         return null;
+    }
+
+    private Field getIdField(Class entity){
+        return Arrays.stream(entity
+                .getDeclaredFields())
+                .filter(field -> field.isAnnotationPresent(Id.class))
+                .findFirst()
+                .orElseThrow(() -> new UnsupportedOperationException("Entity does not have primary key"));
     }
 }

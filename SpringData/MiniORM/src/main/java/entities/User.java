@@ -19,8 +19,7 @@ public class User {
     @Column(name="registrationDate")
     private Date registrationDate;
 
-    public User(int id, String username, String password, int age, Date registrationDate) {
-        this.id = id;
+    public User(String username, String password, int age, Date registrationDate) {
         this.username = username;
         this.password = password;
         this.age = age;
