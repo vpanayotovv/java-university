@@ -1,0 +1,7 @@
+package springdata.hibernate.entity;
+
+public class Main {
+    public static void main(String[] args) {
+
+    }
+}
