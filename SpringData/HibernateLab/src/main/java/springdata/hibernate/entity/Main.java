@@ -13,13 +13,18 @@ public class Main {
 
         Session session = sf.openSession();
 
-        Student student = new Student("Hristo Georgiev");
-        session.beginTransaction();
+//        Student student = new Student("Hristo Georgiev");
+//        session.beginTransaction();
+//
+//        session.save(student);
+//
+//        session.getTransaction().commit();
 
-        session.save(student);
 
-        session.getTransaction().commit();
+        //List of students with HQL
 
+        session.createQuery("from Student ",Student.class).
+                stream().limit(10).forEach(System.out::println);
 
         session.close();
     }
