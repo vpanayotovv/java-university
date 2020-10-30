@@ -17,11 +17,29 @@ public class Engine implements Runnable {
 
     public void run() {
         //Ex02
-        ChangeCasingEx02();
+        //ChangeCasingEx02();
 
-        //Ex3
-        ContainsEmployeeEx03();
+        //Ex03
+        //ContainsEmployeeEx03();
 
+        //Ex04
+        //EmployeesWithSalaryEx04();
+
+        //Ex05
+        //EmployeesFromDepartmentEx05();
+    }
+
+    private void EmployeesFromDepartmentEx05() {
+        entityManager.createQuery("select e as full_name from Employee e where e.department.id = 6 order by e.salary , e.id",Employee.class)
+                .getResultList()
+                .forEach(e -> System.out.printf("%s %s from Research and Development - $%.2f%n"
+                        ,e.getFirstName(),e.getLastName(),e.getSalary()));
+    }
+
+    private void EmployeesWithSalaryEx04() {
+        entityManager.createQuery("select e from Employee e where e.salary > 50000",Employee.class)
+                .getResultList()
+                .forEach(e -> System.out.println(e.getFirstName()));
     }
 
     private void ContainsEmployeeEx03() {
