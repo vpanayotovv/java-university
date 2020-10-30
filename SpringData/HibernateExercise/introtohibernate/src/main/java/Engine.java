@@ -1,3 +1,4 @@
+import entities.Address;
 import entities.Employee;
 import entities.Town;
 
@@ -27,17 +28,60 @@ public class Engine implements Runnable {
 
         //Ex05
         //EmployeesFromDepartmentEx05();
+
+        //Ex06
+        //AddingANewAddressEx06();
+
+        //Ex07
+        //AddressesWithEmployeeCountEx07();
+
+        //Ex08
+        GetEmployeeWithProjectEx08();
+
+
+    }
+
+    private void GetEmployeeWithProjectEx08() {
+
+    }
+
+    private void AddressesWithEmployeeCountEx07() {
+        List<Address> addresses = entityManager.createQuery("select a from Address a order by a.employees.size desc ", Address.class)
+                .setMaxResults(10).getResultList();
+        for (Address address : addresses) {
+            System.out.printf("%s, %s - %d employees%n", address.getText(), address.getTown().getName(), address.getEmployees().size());
+        }
+    }
+
+    private void AddingANewAddressEx06() {
+        Address address = createAddress("Vitoshka 15");
+        System.out.println("Enter employees last name:");
+        String lastName = scanner.nextLine();
+        Employee name = entityManager.createQuery("select e from Employee e where e.lastName = :name", Employee.class)
+                .setParameter("name", lastName).getSingleResult();
+        entityManager.getTransaction().begin();
+        name.setAddress(address);
+        entityManager.getTransaction().commit();
+    }
+
+    private Address createAddress(String text) {
+        Address address = new Address();
+        entityManager.getTransaction().begin();
+        address.setText(text);
+        entityManager.getTransaction().commit();
+        entityManager.persist(address);
+        return address;
     }
 
     private void EmployeesFromDepartmentEx05() {
-        entityManager.createQuery("select e as full_name from Employee e where e.department.id = 6 order by e.salary , e.id",Employee.class)
+        entityManager.createQuery("select e as full_name from Employee e where e.department.id = 6 order by e.salary , e.id", Employee.class)
                 .getResultList()
                 .forEach(e -> System.out.printf("%s %s from Research and Development - $%.2f%n"
-                        ,e.getFirstName(),e.getLastName(),e.getSalary()));
+                        , e.getFirstName(), e.getLastName(), e.getSalary()));
     }
 
     private void EmployeesWithSalaryEx04() {
-        entityManager.createQuery("select e from Employee e where e.salary > 50000",Employee.class)
+        entityManager.createQuery("select e from Employee e where e.salary > 50000", Employee.class)
                 .getResultList()
                 .forEach(e -> System.out.println(e.getFirstName()));
     }
@@ -47,13 +91,13 @@ public class Engine implements Runnable {
         String fullName = scanner.nextLine();
 
         List<Employee> list = entityManager
-                .createQuery("select e from Employee e where concat(e.firstName,' ', e.lastName) = :name" ,Employee.class)
-                .setParameter("name",fullName)
+                .createQuery("select e from Employee e where concat(e.firstName,' ', e.lastName) = :name", Employee.class)
+                .setParameter("name", fullName)
                 .getResultList();
 
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             System.out.println("No");
-        }else {
+        } else {
             System.out.println("Yes");
         }
 
