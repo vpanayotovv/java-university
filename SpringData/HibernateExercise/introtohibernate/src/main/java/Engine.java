@@ -1,8 +1,10 @@
 import entities.Address;
 import entities.Employee;
+import entities.Project;
 import entities.Town;
 
 import javax.persistence.EntityManager;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,13 +38,20 @@ public class Engine implements Runnable {
         //AddressesWithEmployeeCountEx07();
 
         //Ex08
-        GetEmployeeWithProjectEx08();
+        //GetEmployeeWithProjectEx08();
 
 
     }
 
     private void GetEmployeeWithProjectEx08() {
-
+        System.out.println("Enter employee id:");
+        int id = Integer.parseInt(scanner.nextLine());
+        Employee employee = entityManager.createQuery("select e from Employee e where e.id = :id", Employee.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        System.out.printf("%s %s - %s",employee.getFirstName(),employee.getLastName(),employee.getJobTitle());
+        System.out.println();
+        employee.getProjects().stream().sorted(Comparator.comparing(Project::getName)).forEach(e -> System.out.println(e.getName()));
     }
 
     private void AddressesWithEmployeeCountEx07() {
