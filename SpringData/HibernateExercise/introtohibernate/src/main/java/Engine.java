@@ -45,12 +45,22 @@ public class Engine implements Runnable {
         //FindLatestTenProjectsEx09();
 
         //Ex10
-        IncreaseSalariesEx10();
+        //IncreaseSalariesEx10();
 
 
     }
 
     private void IncreaseSalariesEx10() {
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("update Employee e set e.salary = e.salary * 1.12 where e.department.id in (1,2,4,11)").executeUpdate();
+
+        entityManager.getTransaction().commit();
+
+        List<Employee> resultList = entityManager.createQuery("select e from Employee e where e.department.id in (1,2,4,11)", Employee.class)
+                .getResultList();
+        for (Employee employee : resultList) {
+            System.out.printf("%s %s ($%.2f)%n",employee.getFirstName(),employee.getLastName(),employee.getSalary());
+        }
 
     }
 
