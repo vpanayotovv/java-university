@@ -47,7 +47,19 @@ public class Engine implements Runnable {
         //Ex10
         //IncreaseSalariesEx10();
 
+        //Ex11
+        FindEmployeesByFirstNameEx11();
 
+
+    }
+
+    private void FindEmployeesByFirstNameEx11() {
+        String pattern = scanner.nextLine();
+        String concat = pattern.concat("%");
+        entityManager.createQuery("select e from Employee e where e.firstName like :pattern",Employee.class).setParameter("pattern",concat).getResultList()
+                .forEach(e -> {
+                    System.out.printf("%s %s - %s - ($%.2f)%n",e.getFirstName(),e.getLastName(),e.getJobTitle(),e.getSalary());
+        });
     }
 
     private void IncreaseSalariesEx10() {
