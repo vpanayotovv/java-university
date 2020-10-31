@@ -4,6 +4,7 @@ import entities.Project;
 import entities.Town;
 
 import javax.persistence.EntityManager;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -40,6 +41,34 @@ public class Engine implements Runnable {
         //Ex08
         //GetEmployeeWithProjectEx08();
 
+        //Ex09
+        //FindLatestTenProjectsEx09();
+
+        //Ex10
+        IncreaseSalariesEx10();
+
+
+    }
+
+    private void IncreaseSalariesEx10() {
+
+    }
+
+    private void FindLatestTenProjectsEx09() {
+
+        String pattern = "yyyy-MM-dd HH:mm:ss.s";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+
+        entityManager.createQuery("select p from Project p order by p.startDate desc", Project.class)
+                .setMaxResults(10)
+                .getResultList().stream().sorted(Comparator.comparing(Project::getName)).forEach(project -> {
+            System.out.printf("Project name: %s\n" +
+                    " \tProject Description: %s ...\n" +
+                    " \tProject Start Date:%s\n" +
+                    " \tProject End Date: %s\n", project.getName(), project.getDescription().substring(0, 35), project.getStartDate().format(formatter), project.getEndDate());
+        });
+
 
     }
 
@@ -49,7 +78,7 @@ public class Engine implements Runnable {
         Employee employee = entityManager.createQuery("select e from Employee e where e.id = :id", Employee.class)
                 .setParameter("id", id)
                 .getSingleResult();
-        System.out.printf("%s %s - %s",employee.getFirstName(),employee.getLastName(),employee.getJobTitle());
+        System.out.printf("%s %s - %s", employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
         System.out.println();
         employee.getProjects().stream().sorted(Comparator.comparing(Project::getName)).forEach(e -> System.out.println(e.getName()));
     }
