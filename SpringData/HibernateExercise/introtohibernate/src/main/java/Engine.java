@@ -1,10 +1,11 @@
-import entities.Address;
-import entities.Employee;
-import entities.Project;
-import entities.Town;
+import entities.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.lang.reflect.Array;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -50,6 +51,21 @@ public class Engine implements Runnable {
         //Ex11
         //FindEmployeesByFirstNameEx11();
 
+        //Ex12
+        //EmployeesMaximumSalariesEx12();
+
+        //
+
+
+    }
+
+    private void EmployeesMaximumSalariesEx12() {
+        Query query = entityManager.createQuery("SELECT d.name, max(e.salary) from Employee e join Department d on e.department.id = d.id " +
+                "group by d.id " +
+                "having max(e.salary) not between 30000 and 70000");
+        List<Object[]> resultList = query.getResultList();
+
+        resultList.forEach(e -> System.out.println(e[0] + " " + e[1]));
 
     }
 
