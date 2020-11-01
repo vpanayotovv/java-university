@@ -2,10 +2,7 @@ import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.lang.reflect.Array;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -54,9 +51,26 @@ public class Engine implements Runnable {
         //Ex12
         //EmployeesMaximumSalariesEx12();
 
-        //
+        //Ex13
+        //* Not Working * because can`t handle the exception :((
+        //RemoveTownsEx13();
 
+    }
 
+    private void RemoveTownsEx13() {
+        System.out.println("Enter town you want to remove:");
+        String town = scanner.nextLine();
+        int townId = getTownId(town);
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("delete from Employee e where Town.id = :id").setParameter("id",townId);
+        int id = entityManager.createQuery("delete from Address where town.id = :id").setParameter("id", townId).executeUpdate();
+        System.out.println(id + " address in " + town + " deleted");
+        entityManager.createQuery("delete from Town where id = :id").setParameter("id",townId);
+        entityManager.getTransaction().commit();
+    }
+
+    private int getTownId(String town) {
+        return entityManager.createQuery("select t.id from Town t where t.name = :name",Integer.class).setParameter("name", town).getSingleResult();
     }
 
     private void EmployeesMaximumSalariesEx12() {
