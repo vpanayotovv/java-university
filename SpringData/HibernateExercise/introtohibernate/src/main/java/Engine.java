@@ -62,15 +62,15 @@ public class Engine implements Runnable {
         String town = scanner.nextLine();
         int townId = getTownId(town);
         entityManager.getTransaction().begin();
-        entityManager.createQuery("delete from Employee e where Town.id = :id").setParameter("id",townId);
+        entityManager.createQuery("delete from Employee e where Town.id = :id").setParameter("id", townId);
         int id = entityManager.createQuery("delete from Address where town.id = :id").setParameter("id", townId).executeUpdate();
         System.out.println(id + " address in " + town + " deleted");
-        entityManager.createQuery("delete from Town where id = :id").setParameter("id",townId);
+        entityManager.createQuery("delete from Town where id = :id").setParameter("id", townId);
         entityManager.getTransaction().commit();
     }
 
     private int getTownId(String town) {
-        return entityManager.createQuery("select t.id from Town t where t.name = :name",Integer.class).setParameter("name", town).getSingleResult();
+        return entityManager.createQuery("select t.id from Town t where t.name = :name", Integer.class).setParameter("name", town).getSingleResult();
     }
 
     private void EmployeesMaximumSalariesEx12() {
@@ -86,10 +86,10 @@ public class Engine implements Runnable {
     private void FindEmployeesByFirstNameEx11() {
         String pattern = scanner.nextLine();
         String concat = pattern.concat("%");
-        entityManager.createQuery("select e from Employee e where e.firstName like :pattern",Employee.class).setParameter("pattern",concat).getResultList()
+        entityManager.createQuery("select e from Employee e where e.firstName like :pattern", Employee.class).setParameter("pattern", concat).getResultList()
                 .forEach(e -> {
-                    System.out.printf("%s %s - %s - ($%.2f)%n",e.getFirstName(),e.getLastName(),e.getJobTitle(),e.getSalary());
-        });
+                    System.out.printf("%s %s - %s - ($%.2f)%n", e.getFirstName(), e.getLastName(), e.getJobTitle(), e.getSalary());
+                });
     }
 
     private void IncreaseSalariesEx10() {
@@ -101,7 +101,7 @@ public class Engine implements Runnable {
         List<Employee> resultList = entityManager.createQuery("select e from Employee e where e.department.id in (1,2,4,11)", Employee.class)
                 .getResultList();
         for (Employee employee : resultList) {
-            System.out.printf("%s %s ($%.2f)%n",employee.getFirstName(),employee.getLastName(),employee.getSalary());
+            System.out.printf("%s %s ($%.2f)%n", employee.getFirstName(), employee.getLastName(), employee.getSalary());
         }
 
     }
