@@ -4,13 +4,16 @@ import app.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "store_locations")
 public class StoreLocation extends BaseEntity {
 
-    String locationName;
+    private String locationName;
+    private Set<Sale> sales;
 
     public StoreLocation() {
     }
@@ -22,5 +25,14 @@ public class StoreLocation extends BaseEntity {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    @OneToMany(mappedBy = "storeLocation",targetEntity = Sale.class)
+        public Set<Sale> getSales() {
+            return this.sales;
+        }
+
+    public void setSales(Set<Sale> sales) {
+        this.sales = sales;
     }
 }

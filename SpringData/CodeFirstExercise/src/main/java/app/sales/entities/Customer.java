@@ -4,15 +4,20 @@ import app.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
 public class Customer extends BaseEntity {
 
-    String name;
-    String email;
-    String creditCardNumber;
+    private String name;
+    private String email;
+    private String creditCardNumber;
+    private Set<Sale> sales;
+
+
 
     public Customer() {
     }
@@ -42,5 +47,14 @@ public class Customer extends BaseEntity {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    @OneToMany(mappedBy = "customer",targetEntity = Sale.class)
+    public Set<Sale> getSales() {
+        return this.sales;
+    }
+
+    public void setSales(Set<Sale> sales) {
+        this.sales = sales;
     }
 }

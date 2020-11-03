@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 @Table(name = "sales")
 public class Sale extends BaseEntity {
 
-    Product product;
-    Customer customer;
-    StoreLocation storeLocation;
-    LocalDateTime date;
+    private Product product;
+    private Customer customer;
+    private StoreLocation storeLocation;
+    private LocalDateTime date;
 
     public Sale() {
     }

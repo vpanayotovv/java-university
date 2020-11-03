@@ -4,8 +4,10 @@ import app.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -13,7 +15,9 @@ public class Product extends BaseEntity {
 
     private String name;
     private double quantity;
-    BigDecimal price;
+    private BigDecimal price;
+    private Set<Sale> sales;
+
 
     public Product() {
     }
@@ -43,5 +47,14 @@ public class Product extends BaseEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @OneToMany(mappedBy = "product",targetEntity = Sale.class)
+    public Set<Sale> getSales() {
+        return this.sales;
+    }
+
+    public void setSales(Set<Sale> sales) {
+        this.sales = sales;
     }
 }
