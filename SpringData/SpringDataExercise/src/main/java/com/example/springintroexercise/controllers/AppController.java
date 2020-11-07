@@ -19,8 +19,6 @@ public class AppController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        this.custumFileReader.read(Constants.AUTHORS_PATH);
-
 
     }
 }
