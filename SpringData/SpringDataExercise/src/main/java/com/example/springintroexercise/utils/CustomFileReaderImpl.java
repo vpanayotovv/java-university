@@ -14,12 +14,11 @@ public class CustomFileReaderImpl implements CustumFileReader {
     public List<String> read(String path) throws FileNotFoundException {
         List<String> result = new ArrayList<>();
         Scanner scanner = new Scanner(new FileInputStream(path));
-        String line = scanner.nextLine();
         while (scanner.hasNextLine()){
-            if (!line.equals("")) {
+            String line = scanner.nextLine();
+            if (!"".equals(line)) {
                 result.add(line);
             }
-            line = scanner.nextLine();
         }
 
         return result;
