@@ -4,6 +4,7 @@ import com.example.springintroexercise.entities.Author;
 import com.example.springintroexercise.entities.Constants;
 import com.example.springintroexercise.repositories.AuthorRepository;
 import com.example.springintroexercise.utils.CustumFileReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final CustumFileReader custumFileReader;
 
+    @Autowired
     public AuthorServiceImpl(AuthorRepository authorRepository, CustumFileReader custumFileReader) {
         this.authorRepository = authorRepository;
         this.custumFileReader = custumFileReader;
@@ -38,5 +40,15 @@ public class AuthorServiceImpl implements AuthorService {
 
         });
 
+    }
+
+    @Override
+    public int geAllAuthorsCount() {
+        return (int) this.authorRepository.count();
+    }
+
+    @Override
+    public Author findAuthorById(int id) {
+        return this.authorRepository.getOne((long) id);
     }
 }
