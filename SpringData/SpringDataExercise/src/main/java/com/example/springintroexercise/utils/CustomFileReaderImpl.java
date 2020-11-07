@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class CustomFileReaderImpl implements CustumFileReader {
     @Override
     public List<String> read(String path) throws FileNotFoundException {
-        List<String> result = new ArrayList<>();
+        List<String> result = new LinkedList<>();
         Scanner scanner = new Scanner(new FileInputStream(path));
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();

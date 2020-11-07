@@ -17,6 +17,11 @@ public class Author extends BaseEntity {
     public Author() {
     }
 
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @Column(name = "fist_name")
     public String getFirstName() {
         return this.firstName;
