@@ -53,6 +53,7 @@ public class AppController implements CommandLineRunner {
                         System.out.println("good choice :)");
                         break;
                     }
+
                     break;
                 case "2":
                     List<Book> books = bookService.getAllBooksBefore1990();
@@ -60,23 +61,19 @@ public class AppController implements CommandLineRunner {
                         System.out.printf("%s %s%n", book.getAuthor().getFirstName(), book.getAuthor().getLastName());
                     }
                     break;
+
                 case "3":
                     List<Author> authors = this.authorService.getAuthorsByCountOfBooks();
-
-                    authors.forEach(a ->{
-                        System.out.printf("%s %s %d%n",a.getFirstName(),a.getLastName(),a.getBooks().size());
-                    });
+                    authors.forEach(a -> System.out.printf("%s %s %d%n",a.getFirstName(),a.getLastName(),a.getBooks().size()));
 
                     break;
                 case "4":
-
                     List<Book> booksByAuthor = this.bookService.getBooksByGeorgePowell();
-
                     for (Book book : booksByAuthor) {
                         System.out.printf("%s %s %d%n",book.getTitle(),book.getReleaseDate(),book.getCopies());
                     }
-
                     break;
+
                     default:
                         System.out.println("Write the number of Query you want[1,4]:");
             }
