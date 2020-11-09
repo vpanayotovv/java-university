@@ -13,4 +13,6 @@ public interface BookService {
 
     List<Book> getAllBooksBefore1990();
 
+    List<Book> getBooksByGeorgePowell();
+
 }

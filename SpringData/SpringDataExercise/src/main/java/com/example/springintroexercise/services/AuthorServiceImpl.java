@@ -51,5 +51,10 @@ public class AuthorServiceImpl implements AuthorService {
     public Author findAuthorById(int id) {
         return this.authorRepository.getOne((long) id);
     }
+
+    @Override
+    public List<Author> getAuthorsByCountOfBooks() {
+        return this.authorRepository.findAuthorsByBooksCount();
+    }
 }
 

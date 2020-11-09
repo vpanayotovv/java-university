@@ -87,6 +87,12 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository.findAllByReleaseDateBefore(localDate);
     }
 
+    @Override
+    public List<Book> getBooksByGeorgePowell() {
+
+       return this.bookRepository.findAllByAuthorIdOrderByReleaseDateDescTitleAsc(4);
+    }
+
 
     private Set<Category> getRandomCategories() {
 

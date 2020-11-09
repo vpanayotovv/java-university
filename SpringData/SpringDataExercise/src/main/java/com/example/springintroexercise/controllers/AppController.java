@@ -1,5 +1,6 @@
 package com.example.springintroexercise.controllers;
 
+import com.example.springintroexercise.entities.Author;
 import com.example.springintroexercise.entities.Book;
 import com.example.springintroexercise.services.AuthorService;
 import com.example.springintroexercise.services.BookService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @Controller
@@ -33,7 +35,7 @@ public class AppController implements CommandLineRunner {
         categoryService.seedCategories();
         authorService.seedAuthors();
         bookService.seedBooks();
-
+        System.out.println("If you want to end the process write \"exit\"!");
         System.out.println("Write the number of Query you want[1,4]:");
         String input = reader.read();
 
@@ -57,8 +59,26 @@ public class AppController implements CommandLineRunner {
                     for (Book book : books) {
                         System.out.printf("%s %s%n", book.getAuthor().getFirstName(), book.getAuthor().getLastName());
                     }
-                    System.out.println();
                     break;
+                case "3":
+                    List<Author> authors = this.authorService.getAuthorsByCountOfBooks();
+
+                    authors.forEach(a ->{
+                        System.out.printf("%s %s %d%n",a.getFirstName(),a.getLastName(),a.getBooks().size());
+                    });
+
+                    break;
+                case "4":
+
+                    List<Book> booksByAuthor = this.bookService.getBooksByGeorgePowell();
+
+                    for (Book book : booksByAuthor) {
+                        System.out.printf("%s %s %d%n",book.getTitle(),book.getReleaseDate(),book.getCopies());
+                    }
+
+                    break;
+                    default:
+                        System.out.println("Write the number of Query you want[1,4]:");
             }
 
             input = reader.read();
