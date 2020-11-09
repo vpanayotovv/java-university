@@ -23,7 +23,19 @@ public class Book extends BaseEntity {
     private Set<Category> categories;
     private Author author;
 
+
     public Book() {
+    }
+
+    public Book(Author author, EditionType editionType, LocalDate releaseDate, int copies, BigDecimal price, AgeRestriction ageRestriction, String title, Set<Category> categories) {
+        this.author = author;
+        this.editionType = editionType;
+        this.releaseDate = releaseDate;
+        this.copies = copies;
+        this.price = price;
+        this.ageRestriction = ageRestriction;
+        this.title = title;
+        this.categories = categories;
     }
 
     @Column(name = "title",nullable = false,length = 50)

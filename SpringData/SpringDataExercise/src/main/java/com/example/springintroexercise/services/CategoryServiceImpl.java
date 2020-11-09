@@ -24,18 +24,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void seedCategories() throws FileNotFoundException {
-        if (this.categoryRepository.count() != 0){
+        if (this.categoryRepository.count() != 0) {
             return;
         }
 
         List<String> fileInput = custumFileReader.read(Constants.CATEGORIES_PATH);
 
-        fileInput.forEach(r ->{
+        fileInput.forEach(r -> {
             Category category = new Category(r);
 
             this.categoryRepository.saveAndFlush(category);
         });
 
 
+    }
+
+    @Override
+    public Category getCategoryById(long id) {
+        return this.categoryRepository.getOne(id);
+    }
+
+    @Override
+    public int getCategoryCount() {
+        return (int) this.categoryRepository.count();
     }
 }
