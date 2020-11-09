@@ -11,5 +11,4 @@ public interface AuthorService {
     int geAllAuthorsCount();
 
     Author findAuthorById(int id);
-
 }

@@ -3,7 +3,7 @@ package com.example.springintroexercise.services;
 import com.example.springintroexercise.entities.Category;
 import com.example.springintroexercise.entities.Constants;
 import com.example.springintroexercise.repositories.CategoryRepository;
-import com.example.springintroexercise.utils.CustumFileReader;
+import com.example.springintroexercise.utils.CustomFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +14,12 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final CustumFileReader custumFileReader;
+    private final CustomFileReader customFileReader;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CustumFileReader custumFileReader) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CustomFileReader customFileReader) {
         this.categoryRepository = categoryRepository;
-        this.custumFileReader = custumFileReader;
+        this.customFileReader = customFileReader;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
             return;
         }
 
-        List<String> fileInput = custumFileReader.read(Constants.CATEGORIES_PATH);
+        List<String> fileInput = customFileReader.read(Constants.CATEGORIES_PATH);
 
         fileInput.forEach(r -> {
             Category category = new Category(r);

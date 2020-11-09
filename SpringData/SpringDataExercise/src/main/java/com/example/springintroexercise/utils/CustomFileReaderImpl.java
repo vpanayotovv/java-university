@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class CustomFileReaderImpl implements CustumFileReader {
+public class CustomFileReaderImpl implements CustomFileReader {
     @Override
     public List<String> read(String path) throws FileNotFoundException {
         List<String> result = new LinkedList<>();

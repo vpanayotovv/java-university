@@ -3,7 +3,7 @@ package com.example.springintroexercise.services;
 import com.example.springintroexercise.entities.Author;
 import com.example.springintroexercise.entities.Constants;
 import com.example.springintroexercise.repositories.AuthorRepository;
-import com.example.springintroexercise.utils.CustumFileReader;
+import com.example.springintroexercise.utils.CustomFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +14,12 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
-    private final CustumFileReader custumFileReader;
+    private final CustomFileReader customFileReader;
 
     @Autowired
-    public AuthorServiceImpl(AuthorRepository authorRepository, CustumFileReader custumFileReader) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, CustomFileReader customFileReader) {
         this.authorRepository = authorRepository;
-        this.custumFileReader = custumFileReader;
+        this.customFileReader = customFileReader;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
         }
 
 
-        List<String> fileInput = custumFileReader.read(Constants.AUTHORS_PATH);
+        List<String> fileInput = customFileReader.read(Constants.AUTHORS_PATH);
 
         fileInput.forEach(r -> {
             String[] params = r.split("\\s+");
@@ -52,3 +52,4 @@ public class AuthorServiceImpl implements AuthorService {
         return this.authorRepository.getOne((long) id);
     }
 }
+

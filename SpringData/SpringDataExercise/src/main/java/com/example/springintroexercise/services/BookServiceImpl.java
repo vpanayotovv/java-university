@@ -7,7 +7,7 @@ import com.example.springintroexercise.entities.Constants;
 import com.example.springintroexercise.entities.enums.AgeRestriction;
 import com.example.springintroexercise.entities.enums.EditionType;
 import com.example.springintroexercise.repositories.BookRepository;
-import com.example.springintroexercise.utils.CustumFileReader;
+import com.example.springintroexercise.utils.CustomFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +27,14 @@ public class BookServiceImpl implements BookService {
 
     private final AuthorService authorService;
     private final BookRepository bookRepository;
-    private final CustumFileReader custumFileReader;
+    private final CustomFileReader customFileReader;
     private final CategoryService categoryService;
 
     @Autowired
-    public BookServiceImpl(AuthorService authorService, BookRepository bookRepository, CustumFileReader custumFileReader, CategoryService categoryService) {
+    public BookServiceImpl(AuthorService authorService, BookRepository bookRepository, CustomFileReader customFileReader, CategoryService categoryService) {
         this.authorService = authorService;
         this.bookRepository = bookRepository;
-        this.custumFileReader = custumFileReader;
+        this.customFileReader = customFileReader;
         this.categoryService = categoryService;
     }
 
@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
             return;
         }
 
-        List<String> fileInput = custumFileReader.read(Constants.BOOKS_PATH);
+        List<String> fileInput = customFileReader.read(Constants.BOOKS_PATH);
 
         fileInput.forEach(r -> {
             String[] params = r.split("\\s+");
@@ -74,6 +74,19 @@ public class BookServiceImpl implements BookService {
 
         });
     }
+
+    @Override
+    public List<Book> getAllBooksAfter2000() {
+        LocalDate localDate = LocalDate.of(2000,12,31);
+        return this.bookRepository.findAllByReleaseDateAfter(localDate);
+    }
+
+    @Override
+    public List<Book> getAllBooksBefore1990() {
+        LocalDate localDate = LocalDate.of(1990,1,1);
+        return this.bookRepository.findAllByReleaseDateBefore(localDate);
+    }
+
 
     private Set<Category> getRandomCategories() {
 

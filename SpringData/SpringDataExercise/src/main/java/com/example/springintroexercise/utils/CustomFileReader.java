@@ -3,7 +3,7 @@ package com.example.springintroexercise.utils;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public interface CustumFileReader {
+public interface CustomFileReader {
 
     List<String> read(String path) throws FileNotFoundException;
 
