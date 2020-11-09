@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -43,7 +45,11 @@ public class BookServiceImpl implements BookService {
 
             EditionType editionType = EditionType.values()[Integer.parseInt(params[0])];
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
+            LocalDate releaseDate = LocalDate.parse(params[1],formatter);
+
+            int copies = Integer.parseInt(params[2]);
 
             System.out.println();
 
