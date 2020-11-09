@@ -31,7 +31,7 @@ public class Author extends BaseEntity {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name",nullable = false)
+    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return this.lastName;
     }

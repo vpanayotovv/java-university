@@ -38,7 +38,7 @@ public class Book extends BaseEntity {
         this.categories = categories;
     }
 
-    @Column(name = "title",nullable = false,length = 50)
+    @Column(name = "title", nullable = false, length = 50)
     public String getTitle() {
         return this.title;
     }
@@ -47,7 +47,7 @@ public class Book extends BaseEntity {
         this.title = title;
     }
 
-    @Column(name = "description",length = 1000)
+    @Column(name = "description", length = 1000)
     public String getDescription() {
         return this.description;
     }
@@ -65,7 +65,7 @@ public class Book extends BaseEntity {
         this.editionType = editionType;
     }
 
-    @Column(name = "price",nullable = false)
+    @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -74,7 +74,7 @@ public class Book extends BaseEntity {
         this.price = price;
     }
 
-    @Column(name = "copies",nullable = false)
+    @Column(name = "copies", nullable = false)
     public int getCopies() {
         return this.copies;
     }
@@ -101,7 +101,7 @@ public class Book extends BaseEntity {
         this.ageRestriction = ageRestriction;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Set<Category> getCategories() {
         return this.categories;
     }
@@ -110,7 +110,7 @@ public class Book extends BaseEntity {
         this.categories = categories;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Author getAuthor() {
         return this.author;
     }

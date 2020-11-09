@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
 
             Set<Category> categories = getRandomCategories();
 
-            Book book = new Book(author,editionType,releaseDate,copies,price,ageRestriction,title,categories);
+            Book book = new Book(author, editionType, releaseDate, copies, price, ageRestriction, title, categories);
 
             this.bookRepository.saveAndFlush(book);
 
@@ -79,10 +79,10 @@ public class BookServiceImpl implements BookService {
 
         Set<Category> result = new HashSet<>();
 
-        int randomId = ThreadLocalRandom.current().nextInt(1,4);
+        int randomId = ThreadLocalRandom.current().nextInt(1, 4);
 
         for (int i = 1; i <= randomId; i++) {
-            int randomCategory = ThreadLocalRandom.current().nextInt(1,this.categoryService.getCategoryCount() + 1);
+            int randomCategory = ThreadLocalRandom.current().nextInt(1, this.categoryService.getCategoryCount() + 1);
             result.add(this.categoryService.getCategoryById(randomCategory));
         }
         return result;
@@ -100,7 +100,7 @@ public class BookServiceImpl implements BookService {
 
     private Author getRandomAuthor() {
 
-        int randomId = ThreadLocalRandom.current().nextInt(1,this.authorService.geAllAuthorsCount() + 1);
+        int randomId = ThreadLocalRandom.current().nextInt(1, this.authorService.geAllAuthorsCount() + 1);
         return this.authorService.findAuthorById(randomId);
 
     }

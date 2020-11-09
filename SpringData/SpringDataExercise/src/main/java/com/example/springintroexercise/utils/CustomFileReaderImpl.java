@@ -14,7 +14,7 @@ public class CustomFileReaderImpl implements CustumFileReader {
     public List<String> read(String path) throws FileNotFoundException {
         List<String> result = new LinkedList<>();
         Scanner scanner = new Scanner(new FileInputStream(path));
-        while (scanner.hasNextLine()){
+        while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (!"".equals(line)) {
                 result.add(line);

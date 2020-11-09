@@ -24,7 +24,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void seedAuthors() throws FileNotFoundException {
-        if (this.authorRepository.count() != 0){
+        if (this.authorRepository.count() != 0) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class AuthorServiceImpl implements AuthorService {
         fileInput.forEach(r -> {
             String[] params = r.split("\\s+");
 
-            Author author = new Author(params[0],params[1]);
+            Author author = new Author(params[0], params[1]);
 
             this.authorRepository.saveAndFlush(author);
 
