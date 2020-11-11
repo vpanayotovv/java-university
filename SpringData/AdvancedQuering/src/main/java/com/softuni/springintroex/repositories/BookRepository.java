@@ -27,4 +27,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAllByReleaseDateBefore(LocalDate localDate);
 
     List<Book> findAllByTitleContaining(String string);
+
+    List<Book> findAllByAuthorLastNameStartingWith(String text);
+
+    @Query("SELECT count(b) from Book b where length(b.title) > :length")
+    int getCountBooksWithTitleIsLongerThen(int length);
 }

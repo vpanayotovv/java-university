@@ -107,6 +107,16 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository.findAllByTitleContaining(text);
     }
 
+    @Override
+    public List<Book> getBooksAuthorsLastNameStartWith(String text) {
+        return this.bookRepository.findAllByAuthorLastNameStartingWith(text);
+    }
+
+    @Override
+    public int getCountOfBooks(int length) {
+        return this.bookRepository.getCountBooksWithTitleIsLongerThen(length);
+    }
+
     private Set<Category> getRandomCategories() {
 
         Set<Category> result = new HashSet<>();

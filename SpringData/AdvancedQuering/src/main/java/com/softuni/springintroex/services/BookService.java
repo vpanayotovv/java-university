@@ -22,4 +22,8 @@ public interface BookService {
 
     List<Book> getBooksTitleContains(String text);
 
+    List<Book> getBooksAuthorsLastNameStartWith(String text);
+
+    int getCountOfBooks(int length);
+
 }

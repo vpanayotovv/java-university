@@ -48,7 +48,10 @@ public class Engine implements CommandLineRunner {
                     break;
 
                 case "3":
-                    this.bookService.getBooksInPriceRange().forEach(b -> System.out.printf("%s $%.2f%n", b.getTitle(), b.getPrice()));
+                    this.bookService.getBooksInPriceRange().forEach(b ->
+                            System.out.printf("%s $%.2f%n",
+                                    b.getTitle(),
+                                    b.getPrice()));
                     break;
 
                 case "4":
@@ -60,13 +63,19 @@ public class Engine implements CommandLineRunner {
                     System.out.println("Enter date:");
                     String date = reader.read();
                     this.bookService.getBooksReleasedBeforeDate(date)
-                            .forEach(b -> System.out.printf("%s %s $%.2f%n", b.getTitle(), b.getEditionType(), b.getPrice()));
+                            .forEach(b -> System.out.printf("%s %s $%.2f%n",
+                                    b.getTitle(),
+                                    b.getEditionType(),
+                                    b.getPrice()));
                     break;
 
                 case "6":
                     System.out.println("Enter string:");
                     String end = reader.read();
-                    this.authorService.getAllByFirstNameEndWith(end).forEach(a -> System.out.printf(" %s %s%n",a.getFirstName(),a.getLastName()));
+                    this.authorService.getAllByFirstNameEndWith(end).forEach(a ->
+                            System.out.printf(" %s %s%n",
+                                    a.getFirstName(),
+                                    a.getLastName()));
                     break;
 
                 case "7":
@@ -76,7 +85,20 @@ public class Engine implements CommandLineRunner {
                     break;
 
                 case "8":
+                    System.out.println("Enter string:");
+                    String start = reader.read();
+                    this.bookService.getBooksTitleContains(start).forEach(b ->
+                            System.out.printf("%s ( %s %s )%n",
+                                    b.getTitle(),
+                                    b.getAuthor().getFirstName(),
+                                    b.getAuthor().getLastName()));
+                    break;
 
+                case "9":
+                    System.out.println("Enter title's length:");
+                    int length = Integer.parseInt(reader.read());
+                    int countOfBooks = this.bookService.getCountOfBooks(length);
+                    System.out.println(countOfBooks);
                     break;
 
                 default:
