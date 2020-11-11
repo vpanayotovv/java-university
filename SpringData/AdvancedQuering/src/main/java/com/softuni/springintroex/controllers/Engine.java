@@ -32,7 +32,7 @@ public class Engine implements CommandLineRunner {
         authorService.seedAuthors();
         bookService.seedBooks();
         System.out.println("If you want to end the process write \"exit\"!");
-        System.out.println("Write the number of Query you want[1,4]:");
+        System.out.println("Write the number of Query you want[1,14]:");
         String input = reader.read();
 
         while (!input.equals("exit")) {
@@ -52,12 +52,35 @@ public class Engine implements CommandLineRunner {
                     break;
 
                 case "4":
-                    int year = Integer.parseInt(reader.read());
+                    System.out.println("Enter year:");
+                    String year = reader.read();
                     this.bookService.getBooksNotReleasedInGivenYear(year).forEach(b -> System.out.println(b.getTitle()));
+                    break;
+                case "5":
+                    System.out.println("Enter date:");
+                    String date = reader.read();
+                    this.bookService.getBooksReleasedBeforeDate(date)
+                            .forEach(b -> System.out.printf("%s %s $%.2f%n", b.getTitle(), b.getEditionType(), b.getPrice()));
+                    break;
+
+                case "6":
+                    System.out.println("Enter string:");
+                    String end = reader.read();
+                    this.authorService.getAllByFirstNameEndWith(end).forEach(a -> System.out.printf(" %s %s%n",a.getFirstName(),a.getLastName()));
+                    break;
+
+                case "7":
+                    System.out.println("Enter string:");
+                    String text = reader.read();
+                    this.bookService.getBooksTitleContains(text).forEach(b -> System.out.println(b.getTitle()));
+                    break;
+
+                case "8":
+
                     break;
 
                 default:
-                    System.out.println("Write the number of Query you want[1,4]:");
+                    System.out.println("Write the number of Query you want[1,14]:");
             }
 
             input = reader.read();

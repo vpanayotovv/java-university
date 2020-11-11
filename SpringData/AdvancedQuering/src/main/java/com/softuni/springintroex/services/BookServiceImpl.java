@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -88,11 +89,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooksNotReleasedInGivenYear(int year) {
+    public List<Book> getBooksNotReleasedInGivenYear(String year) {
 
-        LocalDate localDate = LocalDate.of(year, 1, 1);
+        return this.bookRepository.findBookNotReleasedInYear(year);
+    }
+
+    @Override
+    public List<Book> getBooksReleasedBeforeDate(String date) {
+        String[] split = date.split("-");
+        LocalDate localDate = LocalDate.of(Integer.parseInt(split[2]),Integer.parseInt(split[1]),Integer.parseInt(split[0]));
 
         return this.bookRepository.findAllByReleaseDateBefore(localDate);
+    }
+
+    @Override
+    public List<Book> getBooksTitleContains(String text) {
+        return this.bookRepository.findAllByTitleContaining(text);
     }
 
     private Set<Category> getRandomCategories() {

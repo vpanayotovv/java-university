@@ -16,6 +16,10 @@ public interface BookService {
 
     List<Book> getBooksInPriceRange();
 
-    List<Book> getBooksNotReleasedInGivenYear(int year);
+    List<Book> getBooksNotReleasedInGivenYear(String year);
+
+    List<Book> getBooksReleasedBeforeDate(String date);
+
+    List<Book> getBooksTitleContains(String text);
 
 }

@@ -4,6 +4,7 @@ package com.softuni.springintroex.services;
 import com.softuni.springintroex.entities.Author;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public interface AuthorService {
 
@@ -12,4 +13,7 @@ public interface AuthorService {
     int geAllAuthorsCount();
 
     Author findAuthorById(int id);
+
+    List<Author> getAllByFirstNameEndWith(String end);
+
 }
