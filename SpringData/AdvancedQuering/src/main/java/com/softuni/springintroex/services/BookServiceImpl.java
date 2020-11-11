@@ -71,6 +71,16 @@ public class BookServiceImpl implements BookService {
         });
     }
 
+    @Override
+    public List<Book> getBooksByAgeRestriction(String ageRes) {
+       return this.bookRepository.findAllByAgeRestriction(AgeRestriction.valueOf(ageRes.toUpperCase()));
+    }
+
+    @Override
+    public List<Book> getGoldBooksWithLessThen5000Copies() {
+       return this.bookRepository.findAllByEditionTypeAndCopiesLessThan(EditionType.GOLD,5000);
+    }
+
     private Set<Category> getRandomCategories() {
 
         Set<Category> result = new HashSet<>();
