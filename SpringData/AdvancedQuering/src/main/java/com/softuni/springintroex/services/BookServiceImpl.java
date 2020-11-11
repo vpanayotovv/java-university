@@ -4,6 +4,7 @@ import com.softuni.springintroex.constants.GlobalConstants;
 import com.softuni.springintroex.entities.*;
 import com.softuni.springintroex.repositories.BookRepository;
 import com.softuni.springintroex.utils.CustomFileReader;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,12 +74,25 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksByAgeRestriction(String ageRes) {
-       return this.bookRepository.findAllByAgeRestriction(AgeRestriction.valueOf(ageRes.toUpperCase()));
+        return this.bookRepository.findAllByAgeRestriction(AgeRestriction.valueOf(ageRes.toUpperCase()));
     }
 
     @Override
     public List<Book> getGoldBooksWithLessThen5000Copies() {
-       return this.bookRepository.findAllByEditionTypeAndCopiesLessThan(EditionType.GOLD,5000);
+        return this.bookRepository.findAllByEditionTypeAndCopiesLessThan(EditionType.GOLD, 5000);
+    }
+
+    @Override
+    public List<Book> getBooksInPriceRange() {
+        return this.bookRepository.findAllByPriceLessThanOrPriceGreaterThan(BigDecimal.valueOf(5), BigDecimal.valueOf(40));
+    }
+
+    @Override
+    public List<Book> getBooksNotReleasedInGivenYear(int year) {
+
+        LocalDate localDate = LocalDate.of(year, 1, 1);
+
+        return this.bookRepository.findAllByReleaseDateBefore(localDate);
     }
 
     private Set<Category> getRandomCategories() {

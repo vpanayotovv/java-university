@@ -1,6 +1,5 @@
 package com.softuni.springintroex.controllers;
 
-import com.softuni.springintroex.entities.Book;
 import com.softuni.springintroex.services.AuthorService;
 import com.softuni.springintroex.services.BookService;
 import com.softuni.springintroex.services.CategoryService;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
 
 @Controller
 public class Engine implements CommandLineRunner {
@@ -43,9 +41,20 @@ public class Engine implements CommandLineRunner {
                     System.out.println("Enter age restriction:");
                     String ageRes = reader.read();
                     this.bookService.getBooksByAgeRestriction(ageRes).forEach(b -> System.out.println(b.getTitle()));
+                    break;
 
                 case "2":
                     this.bookService.getGoldBooksWithLessThen5000Copies().forEach(b -> System.out.println(b.getTitle()));
+                    break;
+
+                case "3":
+                    this.bookService.getBooksInPriceRange().forEach(b -> System.out.printf("%s $%.2f%n", b.getTitle(), b.getPrice()));
+                    break;
+
+                case "4":
+                    int year = Integer.parseInt(reader.read());
+                    this.bookService.getBooksNotReleasedInGivenYear(year).forEach(b -> System.out.println(b.getTitle()));
+                    break;
 
                 default:
                     System.out.println("Write the number of Query you want[1,4]:");

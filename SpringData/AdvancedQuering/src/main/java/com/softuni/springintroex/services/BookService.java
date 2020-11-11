@@ -14,4 +14,8 @@ public interface BookService {
 
     List<Book> getGoldBooksWithLessThen5000Copies();
 
+    List<Book> getBooksInPriceRange();
+
+    List<Book> getBooksNotReleasedInGivenYear(int year);
+
 }
