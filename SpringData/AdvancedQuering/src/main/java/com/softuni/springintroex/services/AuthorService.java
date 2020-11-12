@@ -5,6 +5,7 @@ import com.softuni.springintroex.entities.Author;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Map;
 
 public interface AuthorService {
 
@@ -16,4 +17,5 @@ public interface AuthorService {
 
     List<Author> getAllByFirstNameEndWith(String end);
 
+    Map<String,Integer> getAuthorsCopies();
 }

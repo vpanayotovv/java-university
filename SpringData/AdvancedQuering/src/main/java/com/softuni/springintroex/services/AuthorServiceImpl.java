@@ -2,13 +2,15 @@ package com.softuni.springintroex.services;
 
 import com.softuni.springintroex.constants.GlobalConstants;
 import com.softuni.springintroex.entities.Author;
+import com.softuni.springintroex.entities.Book;
 import com.softuni.springintroex.repositories.AuthorRepository;
 import com.softuni.springintroex.utils.CustomFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -56,6 +58,20 @@ public class AuthorServiceImpl implements AuthorService {
     public List<Author> getAllByFirstNameEndWith(String end) {
         String endLike = "%" + end;
         return this.authorRepository.findAllByFirstNameLike(endLike);
+    }
+
+    @Override
+    public Map<String,Integer> getAuthorsCopies() {
+        Map<String,Integer> authorCopies = new LinkedHashMap<>();
+        this.authorRepository.findAll().forEach(a -> {
+            int copies = a.getBooks().stream().mapToInt(Book::getCopies).sum();
+            authorCopies.put(a.getFirstName() + " " + a.getLastName(),copies);
+        });
+
+        return authorCopies.entrySet().stream()
+                .sorted((l,r) -> Integer.compare(r.getValue(),l.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
     }
 }
 

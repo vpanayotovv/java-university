@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import java.util.Map;
+
 
 @Controller
 public class Engine implements CommandLineRunner {
@@ -100,6 +102,12 @@ public class Engine implements CommandLineRunner {
                     int countOfBooks = this.bookService.getCountOfBooks(length);
                     System.out.println(countOfBooks);
                     break;
+                case "10":
+                    Map<String,Integer> authorsCopies = this.authorService.getAuthorsCopies();
+
+                    for (Map.Entry<String, Integer> entry : authorsCopies.entrySet()) {
+                        System.out.printf("%s - %d%n",entry.getKey(),entry.getValue());
+                    }
 
                 default:
                     System.out.println("Write the number of Query you want[1,14]:");
