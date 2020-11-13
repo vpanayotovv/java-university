@@ -34,7 +34,7 @@ public class Engine implements CommandLineRunner {
         seedData();
 
         System.out.println("If you want to end the process write \"exit\"!");
-        System.out.println("Write the number of Query you want[1,14]:");
+        System.out.println("Write the number of Query you want[1,11]:");
         String input = reader.read();
 
         while (!input.equals("exit")) {
@@ -116,7 +116,7 @@ public class Engine implements CommandLineRunner {
                     break;
 
                 default:
-                    System.out.println("Write the number of Query you want[1,14]:");
+                    System.out.println("Write the number of Query you want[1,11]:");
             }
 
             input = reader.read();
