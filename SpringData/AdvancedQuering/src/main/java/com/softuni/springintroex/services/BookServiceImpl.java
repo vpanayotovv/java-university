@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -115,6 +116,18 @@ public class BookServiceImpl implements BookService {
     @Override
     public int getCountOfBooks(int length) {
         return this.bookRepository.getCountBooksWithTitleIsLongerThen(length);
+    }
+
+    @Override
+    public List<String> getBooksByTitleName(String title) {
+        List<String> result = new ArrayList<>();
+        for (Book book : this.bookRepository.findByTitle(title)) {
+            result.add(book.getTitle());
+            result.add(book.getEditionType().toString());
+            result.add(book.getAgeRestriction().toString());
+            result.add(book.getPrice().toString());
+        }
+        return result;
     }
 
     private Set<Category> getRandomCategories() {

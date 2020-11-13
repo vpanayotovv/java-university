@@ -26,4 +26,6 @@ public interface BookService {
 
     int getCountOfBooks(int length);
 
+    List<String> getBooksByTitleName(String title);
+
 }

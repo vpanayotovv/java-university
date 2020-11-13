@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 
@@ -30,9 +31,8 @@ public class Engine implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        categoryService.seedCategories();
-        authorService.seedAuthors();
-        bookService.seedBooks();
+        seedData();
+
         System.out.println("If you want to end the process write \"exit\"!");
         System.out.println("Write the number of Query you want[1,14]:");
         String input = reader.read();
@@ -89,7 +89,7 @@ public class Engine implements CommandLineRunner {
                 case "8":
                     System.out.println("Enter string:");
                     String start = reader.read();
-                    this.bookService.getBooksTitleContains(start).forEach(b ->
+                    this.bookService.getBooksAuthorsLastNameStartWith(start).forEach(b ->
                             System.out.printf("%s ( %s %s )%n",
                                     b.getTitle(),
                                     b.getAuthor().getFirstName(),
@@ -108,6 +108,12 @@ public class Engine implements CommandLineRunner {
                     for (Map.Entry<String, Integer> entry : authorsCopies.entrySet()) {
                         System.out.printf("%s - %d%n",entry.getKey(),entry.getValue());
                     }
+                    break;
+                case "11":
+                    System.out.println("Enter title:");
+                    String titleOfBook = reader.read();
+                    this.bookService.getBooksByTitleName(titleOfBook).forEach(b -> System.out.print(b + " "));
+                    break;
 
                 default:
                     System.out.println("Write the number of Query you want[1,14]:");
@@ -116,5 +122,11 @@ public class Engine implements CommandLineRunner {
             input = reader.read();
         }
 
+    }
+
+    private void seedData() throws FileNotFoundException {
+        categoryService.seedCategories();
+        authorService.seedAuthors();
+        bookService.seedBooks();
     }
 }
