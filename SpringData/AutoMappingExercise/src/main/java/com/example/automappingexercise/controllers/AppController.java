@@ -56,6 +56,10 @@ public class AppController implements CommandLineRunner {
                     UserLoginDto userLoginDto = new UserLoginDto(input[1],input[2]);
                     this.userService.loginUser(userLoginDto);
                     break;
+
+                case "Logout":
+                    this.userService.logout();
+                    break;
             }
             if (input[0].equals("exit")){
                 break;
