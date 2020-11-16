@@ -22,7 +22,7 @@ public class Game {
     private String title;
     private String trailer;
     private String imageThumbnail;
-    private int size;
+    private Double size;
     private String description;
     private LocalDate releaseDate;
     @ManyToMany(mappedBy = "games")

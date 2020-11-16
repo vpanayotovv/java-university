@@ -1,7 +1,9 @@
 package com.example.automappingexercise.controllers;
 
+import com.example.automappingexercise.dtos.GameAddDto;
 import com.example.automappingexercise.dtos.UserLoginDto;
 import com.example.automappingexercise.dtos.UserRegDto;
+import com.example.automappingexercise.services.GameService;
 import com.example.automappingexercise.services.UserService;
 import com.example.automappingexercise.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import java.io.BufferedReader;
+import java.math.BigDecimal;
 
 @Component
 public class AppController implements CommandLineRunner {
@@ -17,12 +20,14 @@ public class AppController implements CommandLineRunner {
     private final BufferedReader reader;
     private final ValidationUtil validationUtil;
     private final UserService userService;
+    private final GameService gameService;
 
     @Autowired
-    public AppController(BufferedReader reader, ValidationUtil validationUtil, UserService userService) {
+    public AppController(BufferedReader reader, ValidationUtil validationUtil, UserService userService, GameService gameService) {
         this.reader = reader;
         this.validationUtil = validationUtil;
         this.userService = userService;
+        this.gameService = gameService;
     }
 
     @Override
@@ -60,6 +65,19 @@ public class AppController implements CommandLineRunner {
                 case "Logout":
                     this.userService.logout();
                     break;
+
+                case "AddGame":
+
+                    GameAddDto gameAddDto = new GameAddDto(input[1],
+                            new BigDecimal(input[2]),
+                            Double.parseDouble(input[3]),
+                            input[4],
+                            input[5],
+                            input[6]);
+                    this.gameService.addGame(gameAddDto);
+                    System.out.println();
+                    break;
+
             }
             if (input[0].equals("exit")){
                 break;
