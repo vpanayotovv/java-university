@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerUser(UserRegDto userRegDto) {
 
-        User user = this.modelMapper.map(userRegDto,User.class);
+        User user = this.modelMapper.map(userRegDto, User.class);
 
         user.setRole(this.userRepository.count() == 0 ? Role.ADMIN : Role.USER);
 
@@ -39,10 +40,10 @@ public class UserServiceImpl implements UserService {
 
         User user = this.userRepository.findByEmail(userLoginDto.getEmail());
 
-        if (user == null){
+        if (user == null) {
             System.out.println("Incorrect username / password");
-        }else {
-            this.userDto = this.modelMapper.map(user ,UserDto.class);
+        } else {
+            this.userDto = this.modelMapper.map(user, UserDto.class);
             System.out.println("Successfully logged in " + user.getFullName());
         }
 
@@ -50,12 +51,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-        if (this.userDto == null){
+        if (this.userDto == null) {
             System.out.println("Cannot log out. No user was logged in.");
-        }else {
+        } else {
             String name = this.userDto.getFullName();
             this.userDto = null;
             System.out.println("User " + name + " successfully logged out");
         }
+    }
+
+    @Override
+    public boolean isLoggedUserIsAdmin() {
+        return this.userDto.getRole().equals(Role.ADMIN);
+
     }
 }

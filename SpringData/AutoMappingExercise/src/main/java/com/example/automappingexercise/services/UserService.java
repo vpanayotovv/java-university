@@ -9,4 +9,7 @@ public interface UserService {
     void loginUser(UserLoginDto userLoginDto);
 
     void logout();
+
+    boolean isLoggedUserIsAdmin();
+
 }

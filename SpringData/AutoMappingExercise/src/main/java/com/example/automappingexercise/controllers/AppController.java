@@ -46,7 +46,7 @@ public class AppController implements CommandLineRunner {
                         UserRegDto userRegDto = new UserRegDto(input[1], input[2], input[4]);
                         if (this.validationUtil.isValid(userRegDto)) {
                             this.userService.registerUser(userRegDto);
-                            System.out.println(input[4] +  " was registered");
+                            System.out.println(input[4] + " was registered");
 
                         } else {
                             this.validationUtil.getViolations(userRegDto)
@@ -56,9 +56,10 @@ public class AppController implements CommandLineRunner {
                         }
                     }
                     break;
+
                 case "LoginUser":
 
-                    UserLoginDto userLoginDto = new UserLoginDto(input[1],input[2]);
+                    UserLoginDto userLoginDto = new UserLoginDto(input[1], input[2]);
                     this.userService.loginUser(userLoginDto);
                     break;
 
@@ -67,7 +68,6 @@ public class AppController implements CommandLineRunner {
                     break;
 
                 case "AddGame":
-
                     GameAddDto gameAddDto = new GameAddDto(input[1],
                             new BigDecimal(input[2]),
                             Double.parseDouble(input[3]),
@@ -75,21 +75,27 @@ public class AppController implements CommandLineRunner {
                             input[5],
                             input[6]);
 
-                    if (this.validationUtil.isValid(gameAddDto)){
-                        this.gameService.addGame(gameAddDto);
-                        System.out.println("Added " + input[1]);
-                    }else {
-                        this.validationUtil.getViolations(gameAddDto)
-                                .stream()
-                                .map(ConstraintViolation::getMessage)
-                                .forEach(System.out::println);
+                    try {
+                        if (this.validationUtil.isValid(gameAddDto)) {
+                            this.gameService.addGame(gameAddDto);
+                            System.out.println("Added " + input[1]);
+                        } else {
+                            this.validationUtil.getViolations(gameAddDto)
+                                    .stream()
+                                    .map(ConstraintViolation::getMessage)
+                                    .forEach(System.out::println);
+                        }
+                    }catch (NullPointerException ex){
+                        System.out.println("No logged user!");
                     }
+                    break;
 
-                    System.out.println();
+                case "EditGame":
+                    //TODO:
                     break;
 
             }
-            if (input[0].equals("exit")){
+            if (input[0].equals("exit")) {
                 break;
             }
 
