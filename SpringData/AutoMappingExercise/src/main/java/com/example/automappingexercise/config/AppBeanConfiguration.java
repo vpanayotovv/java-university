@@ -1,6 +1,5 @@
 package com.example.automappingexercise.config;
 
-import com.example.automappingexercise.domain.entities.User;
 import com.example.automappingexercise.utils.ValidationUtil;
 import com.example.automappingexercise.utils.ValidationUtilImpl;
 import org.modelmapper.ModelMapper;

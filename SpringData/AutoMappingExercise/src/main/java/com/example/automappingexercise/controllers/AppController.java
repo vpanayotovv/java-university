@@ -110,6 +110,8 @@ public class AppController implements CommandLineRunner {
                     this.gameService.deleteGame(id);
                     break;
 
+                    //TODO: More to implement!
+
             }
             if (input[0].equals("exit")) {
                 break;
