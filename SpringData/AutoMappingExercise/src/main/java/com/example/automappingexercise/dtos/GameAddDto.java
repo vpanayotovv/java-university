@@ -10,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -35,5 +36,7 @@ public class GameAddDto {
 
     @Size(min = 20)
     private String description;
+
+    private LocalDate releaseDate;
 
 }

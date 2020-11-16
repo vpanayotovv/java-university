@@ -1,6 +1,7 @@
 package com.example.automappingexercise.controllers;
 
 import com.example.automappingexercise.dtos.GameAddDto;
+import com.example.automappingexercise.dtos.GameEditDto;
 import com.example.automappingexercise.dtos.UserLoginDto;
 import com.example.automappingexercise.dtos.UserRegDto;
 import com.example.automappingexercise.services.GameService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintViolation;
 import java.io.BufferedReader;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.time.LocalDate;
 
 @Component
 public class AppController implements CommandLineRunner {
@@ -73,7 +76,10 @@ public class AppController implements CommandLineRunner {
                             Double.parseDouble(input[3]),
                             input[4],
                             input[5],
-                            input[6]);
+                            input[6], LocalDate.of(
+                            Integer.parseInt(input[7].split("-")[2]),
+                            Integer.parseInt(input[7].split("-")[1]),
+                            Integer.parseInt(input[7].split("-")[0])));
 
                     try {
                         if (this.validationUtil.isValid(gameAddDto)) {
@@ -85,13 +91,24 @@ public class AppController implements CommandLineRunner {
                                     .map(ConstraintViolation::getMessage)
                                     .forEach(System.out::println);
                         }
-                    }catch (NullPointerException ex){
+                    } catch (NullPointerException ex) {
                         System.out.println("No logged user!");
                     }
                     break;
 
                 case "EditGame":
-                    //TODO:
+                    try {
+                        GameEditDto gameEditDto = new GameEditDto(Long.parseLong(input[1]),
+                                new BigDecimal(input[2].split("=")[1]),
+                                Double.parseDouble(input[3].split("=")[1]));
+                        this.gameService.editGame(gameEditDto);
+                    } catch (NullPointerException ex) {
+                        System.out.println("No logged user!");
+                    }
+                    break;
+                case "DeleteGame":
+                    Long id = Long.parseLong(input[1]);
+                    this.gameService.deleteGame(id);
                     break;
 
             }
