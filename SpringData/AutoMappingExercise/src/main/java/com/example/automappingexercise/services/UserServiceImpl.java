@@ -7,6 +7,7 @@ import com.example.automappingexercise.dtos.UserLoginDto;
 import com.example.automappingexercise.dtos.UserRegDto;
 import com.example.automappingexercise.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private UserDto userDto;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;

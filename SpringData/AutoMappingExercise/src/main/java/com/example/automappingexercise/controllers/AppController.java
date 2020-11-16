@@ -74,7 +74,17 @@ public class AppController implements CommandLineRunner {
                             input[4],
                             input[5],
                             input[6]);
-                    this.gameService.addGame(gameAddDto);
+
+                    if (this.validationUtil.isValid(gameAddDto)){
+                        this.gameService.addGame(gameAddDto);
+                        System.out.println("Added " + input[1]);
+                    }else {
+                        this.validationUtil.getViolations(gameAddDto)
+                                .stream()
+                                .map(ConstraintViolation::getMessage)
+                                .forEach(System.out::println);
+                    }
+
                     System.out.println();
                     break;
 
