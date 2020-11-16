@@ -105,12 +105,17 @@ public class AppController implements CommandLineRunner {
                         System.out.println("No logged user!");
                     }
                     break;
+
                 case "DeleteGame":
-                    Long id = Long.parseLong(input[1]);
-                    this.gameService.deleteGame(id);
+                    try {
+                        Long id = Long.parseLong(input[1]);
+                        this.gameService.deleteGame(id);
+                    } catch (NullPointerException ex) {
+                        System.out.println("No logged user!");
+                    }
                     break;
 
-                    //TODO: More to implement!
+                //TODO: More to implement!
 
             }
             if (input[0].equals("exit")) {
