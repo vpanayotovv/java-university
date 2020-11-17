@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "parts")
@@ -29,5 +30,8 @@ public class Part {
 
     @ManyToOne
     private Supplier supplier;
+
+    @ManyToMany
+    private List<Car> cars;
 
 }
