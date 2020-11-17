@@ -8,10 +8,10 @@ import softuni.jsonexercise.domain.dtos.SupplierSeedDto;
 import softuni.jsonexercise.domain.entities.Constants;
 import softuni.jsonexercise.domain.entities.Supplier;
 import softuni.jsonexercise.repositories.SupplierRepository;
+import softuni.jsonexercise.utils.CustomFileReader;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -20,24 +20,36 @@ public class SupplierServiceImpl implements SupplierService {
     private final ModelMapper modelMapper;
     private final SupplierRepository supplierRepository;
     private final Gson gson;
+    private final CustomFileReader reader;
 
     @Autowired
-    public SupplierServiceImpl(ModelMapper modelMapper, SupplierRepository supplierRepository, Gson gson) {
+    public SupplierServiceImpl(ModelMapper modelMapper, SupplierRepository supplierRepository, Gson gson, CustomFileReader reader) {
         this.modelMapper = modelMapper;
         this.supplierRepository = supplierRepository;
         this.gson = gson;
+        this.reader = reader;
     }
 
     @Override
     public void seedData() throws IOException {
 
-        String content = String.join("", Files.readAllLines(Path.of(Constants.SUPPLIERS_PATH)));
+        String read = String.join("", reader.read(Constants.SUPPLIERS_PATH));
 
-        SupplierSeedDto[] data = this.gson.fromJson(content, SupplierSeedDto[].class);
+        SupplierSeedDto[] supplierSeedDto = this.gson.fromJson(read,SupplierSeedDto[].class);
 
-        for (SupplierSeedDto supplier : data) {
-            Supplier supDto = this.modelMapper.map(supplier, Supplier.class);
-            this.supplierRepository.saveAndFlush(supDto);
+        for (SupplierSeedDto seedDto : supplierSeedDto) {
+            this.supplierRepository.saveAndFlush(this.modelMapper.map(seedDto,Supplier.class));
         }
+
+    }
+
+    @Override
+    public int getCount() {
+        return (int) this.supplierRepository.count();
+    }
+
+    @Override
+    public Supplier getById(Long id) {
+       return this.supplierRepository.findById(id).orElseThrow(() -> new NoSuchElementException("bal bal"));
     }
 }
