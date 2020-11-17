@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JsonExerciseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JsonExerciseApplication.class, args);
+        SpringApplication.run(JsonExerciseApplication.class, args).close();
     }
 
 }
