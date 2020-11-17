@@ -1,21 +1,20 @@
 package softuni.jsonexercise.domain.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "suppliers")
+@Table(name = "parts")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Supplier {
+public class Part {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +22,12 @@ public class Supplier {
 
     @Column
     private String name;
-
     @Column
-    private boolean isImporter;
+    private BigDecimal price;
+    @Column
+    private int quantity;
 
-    @OneToMany(mappedBy = "supplier")
-    private List<Part> parts;
+    @ManyToOne
+    private Supplier supplier;
+
 }
