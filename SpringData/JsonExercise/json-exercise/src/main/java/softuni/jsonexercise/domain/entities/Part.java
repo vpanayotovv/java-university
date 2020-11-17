@@ -31,7 +31,7 @@ public class Part {
     @ManyToOne
     private Supplier supplier;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "parts")
     private List<Car> cars;
 
 }

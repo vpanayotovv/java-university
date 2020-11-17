@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier,Long>{
-
     Optional<Supplier> findById(Long id);
 }

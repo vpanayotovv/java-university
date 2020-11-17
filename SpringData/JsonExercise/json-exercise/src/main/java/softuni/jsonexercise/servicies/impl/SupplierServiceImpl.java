@@ -1,4 +1,4 @@
-package softuni.jsonexercise.servicies;
+package softuni.jsonexercise.servicies.impl;
 
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
@@ -8,6 +8,7 @@ import softuni.jsonexercise.domain.dtos.SupplierSeedDto;
 import softuni.jsonexercise.domain.entities.Constants;
 import softuni.jsonexercise.domain.entities.Supplier;
 import softuni.jsonexercise.repositories.SupplierRepository;
+import softuni.jsonexercise.servicies.SupplierService;
 import softuni.jsonexercise.utils.CustomFileReader;
 
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Supplier getById(Long id) {
-       return this.supplierRepository.findById(id).orElseThrow(() -> new NoSuchElementException("bal bal"));
+    public Supplier getById(Long id) throws Exception {
+       return this.supplierRepository.findById(id).orElseThrow(() -> new Exception("No such supplier!"));
     }
 }

@@ -24,9 +24,9 @@ public class Car {
     @Column
     private String model;
     @Column
-    private int travelledDistance;
+    private Long travelledDistance;
 
-    @ManyToMany(mappedBy = "cars")
+    @ManyToMany
     private List<Part> parts;
 
 }

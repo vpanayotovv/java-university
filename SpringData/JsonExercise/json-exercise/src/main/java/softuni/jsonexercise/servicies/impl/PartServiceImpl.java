@@ -1,4 +1,4 @@
-package softuni.jsonexercise.servicies;
+package softuni.jsonexercise.servicies.impl;
 
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
@@ -8,9 +8,10 @@ import softuni.jsonexercise.domain.entities.Constants;
 import softuni.jsonexercise.domain.entities.Part;
 import softuni.jsonexercise.domain.entities.Supplier;
 import softuni.jsonexercise.repositories.PartRepository;
+import softuni.jsonexercise.servicies.PartService;
+import softuni.jsonexercise.servicies.SupplierService;
 import softuni.jsonexercise.utils.CustomFileReader;
 
-import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -31,13 +32,12 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    public void seedData() throws IOException {
+    public void seedData() throws Exception {
 
         String read = String.join("", reader.read(Constants.PARTS_PATH));
 
         PartSeedDto[] partSeedDtos = this.gson.fromJson(read, PartSeedDto[].class);
 
-        System.out.println();
 
         for (PartSeedDto partSeedDto : partSeedDtos) {
             Part part = this.modelMapper.map(partSeedDto,Part.class);
@@ -47,9 +47,19 @@ public class PartServiceImpl implements PartService {
 
     }
 
-    private Supplier getRandomSupplier() {
+    @Override
+    public long getCount() {
+        return this.partRepository.count();
+    }
+
+    @Override
+    public Part getPartById(Long id) throws Exception {
+        return this.partRepository.findById(id).orElseThrow( () ->new Exception("No such Part!"));
+    }
+
+    private Supplier getRandomSupplier() throws Exception {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         long index = random.nextInt(this.supplierService.getCount());
-        return this.supplierService.getById(index);
+        return this.supplierService.getById(index + 1);
     }
 }

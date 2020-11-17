@@ -1,9 +1,12 @@
 package softuni.jsonexercise.servicies;
 
-import java.io.IOException;
+import softuni.jsonexercise.domain.entities.Part;
 
 public interface PartService {
 
-    void seedData() throws IOException;
+    void seedData() throws Exception;
 
+    long getCount();
+
+    Part getPartById(Long id) throws Exception;
 }

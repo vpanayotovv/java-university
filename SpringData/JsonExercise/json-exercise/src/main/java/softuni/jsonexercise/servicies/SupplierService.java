@@ -10,6 +10,6 @@ public interface SupplierService {
 
     int getCount();
 
-    Supplier getById(Long id);
+    Supplier getById(Long id) throws Exception;
 
 }
