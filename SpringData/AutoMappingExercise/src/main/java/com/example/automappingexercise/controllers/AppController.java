@@ -10,7 +10,6 @@ import com.example.automappingexercise.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
 import javax.validation.ConstraintViolation;
 import java.io.BufferedReader;
 import java.math.BigDecimal;
@@ -36,6 +35,7 @@ public class AppController implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         while (true) {
+            System.out.println("Enter Command:");
             String[] input = this.reader.readLine().split("\\|");
 
             switch (input[0]) {
@@ -114,8 +114,6 @@ public class AppController implements CommandLineRunner {
                         System.out.println("No logged user!");
                     }
                     break;
-
-                //TODO: More to implement!
 
             }
             if (input[0].equals("exit")) {
