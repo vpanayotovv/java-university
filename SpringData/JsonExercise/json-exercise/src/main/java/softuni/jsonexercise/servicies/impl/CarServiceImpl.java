@@ -55,9 +55,9 @@ public class CarServiceImpl implements CarService {
         long count = this.partService.getCount();
         List<Part> parts = new LinkedList<>();
         if (count != 0) {
-            long index = random.nextInt((int) count - 1);
+            long index = random.nextInt((int) count);
             for (int i = 0; i < 10; i++) {
-                Part partById = this.partService.getPartById(index);
+                Part partById = this.partService.getPartById(index+1);
                 parts.add(partById);
             }
         }

@@ -12,6 +12,7 @@ import softuni.jsonexercise.servicies.PartService;
 import softuni.jsonexercise.servicies.SupplierService;
 import softuni.jsonexercise.utils.CustomFileReader;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -53,11 +54,11 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    public Part getPartById(Long id) throws Exception {
-        return this.partRepository.findById(id).orElseThrow( () ->new Exception("No such Part!"));
+    public Part getPartById(Long id){
+        return this.partRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No such Part!"));
     }
 
-    private Supplier getRandomSupplier() throws Exception {
+    private Supplier getRandomSupplier(){
         ThreadLocalRandom random = ThreadLocalRandom.current();
         long index = random.nextInt(this.supplierService.getCount());
         return this.supplierService.getById(index + 1);
