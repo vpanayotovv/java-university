@@ -50,6 +50,11 @@ public class CarServiceImpl implements CarService {
 
     }
 
+    @Override
+    public Car getCarById(Long id) {
+        return this.carRepository.getById(id);
+    }
+
     private List<Part> getRandomParts() throws Exception {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         long count = this.partService.getCount();

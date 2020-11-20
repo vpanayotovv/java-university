@@ -2,6 +2,7 @@ package softuni.jsonexercise.servicies.impl;
 
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import softuni.jsonexercise.domain.dtos.PartSeedDto;
 import softuni.jsonexercise.domain.entities.Constants;
@@ -24,6 +25,7 @@ public class PartServiceImpl implements PartService {
     private final CustomFileReader reader;
     private final SupplierService supplierService;
 
+    @Autowired
     public PartServiceImpl(PartRepository partRepository, ModelMapper modelMapper, Gson gson, CustomFileReader reader, SupplierService supplierService) {
         this.partRepository = partRepository;
         this.modelMapper = modelMapper;

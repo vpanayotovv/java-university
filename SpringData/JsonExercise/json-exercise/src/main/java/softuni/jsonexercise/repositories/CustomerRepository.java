@@ -6,4 +6,7 @@ import softuni.jsonexercise.domain.entities.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
+
+    Customer getById(Long id);
+
 }
