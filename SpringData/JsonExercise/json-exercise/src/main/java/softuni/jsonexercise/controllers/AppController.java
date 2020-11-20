@@ -25,10 +25,12 @@ public class AppController implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        this.supplierService.seedData();
-//        this.partService.seedData();
-//        this.carService.seedData();
-//        this.customerService.seedData();
+        this.supplierService.seedData();
+        this.partService.seedData();
+        this.carService.seedData();
+        this.customerService.seedData();
         this.saleService.seedData();
+
+        this.customerService.getCustomersSorted();
     }
 }
