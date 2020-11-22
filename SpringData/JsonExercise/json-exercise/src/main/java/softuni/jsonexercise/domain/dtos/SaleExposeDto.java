@@ -11,5 +11,8 @@ import lombok.Setter;
 public class SaleExposeDto {
 
     @Expose
-    private String name;
+    private Long id;
+
+    @Expose
+    private int discount;
 }

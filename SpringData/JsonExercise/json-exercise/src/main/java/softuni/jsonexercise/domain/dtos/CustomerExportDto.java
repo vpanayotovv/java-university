@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,7 +20,7 @@ public class CustomerExportDto {
     private String name;
 
     @Expose
-    private LocalDateTime birthDate;
+    private String birthDate;
 
     @Expose
     private boolean isYoungDriver;

@@ -3,6 +3,7 @@ package softuni.jsonexercise.servicies.impl;
 import com.google.gson.Gson;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import softuni.jsonexercise.domain.dtos.CustomerExportDto;
 import softuni.jsonexercise.domain.dtos.CustomerSeedDto;
@@ -14,7 +15,10 @@ import softuni.jsonexercise.utils.CustomFileReader;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -54,9 +58,11 @@ public class CustomerServiceImpl implements CustomerService {
         List<CustomerExportDto> result = new ArrayList<>();
         List<Customer> customers = this.customerRepository.getCustomers();
         for (Customer customer : customers) {
-            CustomerExportDto mappedCustomer = this.modelMapper.map(customer, CustomerExportDto.class);
+            CustomerExportDto mappedCustomer =
+                    this.modelMapper.map(customer, new TypeToken<CustomerExportDto>() {}.getType());
             result.add(mappedCustomer);
         }
-        System.out.println(this.gson.toJson(result));
+        List<CustomerExportDto> collect = result.stream().sorted(Comparator.comparing(CustomerExportDto::getBirthDate)).collect(Collectors.toList());
+        System.out.println(this.gson.toJson(collect));
     }
 }
