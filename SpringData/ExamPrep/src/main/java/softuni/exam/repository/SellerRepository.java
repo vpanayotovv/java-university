@@ -1,5 +1,7 @@
 package softuni.exam.repository;
 
-//ToDo
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface SellerRepository {
 }
