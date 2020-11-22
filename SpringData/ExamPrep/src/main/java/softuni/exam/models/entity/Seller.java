@@ -22,7 +22,7 @@ public class Seller {
     private String firstName;
     @Column
     private String lastName;
-    @Column
+    @Column(unique = true)
     private String email;
     @Enumerated(EnumType.ORDINAL)
     @Column

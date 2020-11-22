@@ -10,6 +10,7 @@ import softuni.exam.util.XmlParser;
 import softuni.exam.util.XmlParserImpl;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -26,6 +27,7 @@ public class AppBeanConfiguration {
         return new ValidationUtilImpl();
     }
 
+
     @Bean
     public Gson gson() {
         return new GsonBuilder()
@@ -35,6 +37,12 @@ public class AppBeanConfiguration {
                     @Override
                     public LocalDateTime deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
                         return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+                    }
+                })
+                .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+                    @Override
+                    public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+                        return LocalDate.parse(json.getAsString(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     }
                 })
                 .create();
