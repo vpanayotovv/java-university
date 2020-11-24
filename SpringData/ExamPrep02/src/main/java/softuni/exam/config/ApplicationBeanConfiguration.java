@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import softuni.exam.util.ValidatorUtil;
 import softuni.exam.util.ValidatorUtilImpl;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
+import softuni.exam.util.XmlParser;
+import softuni.exam.util.XmlParserImpl;
 
 @Configuration
 public class ApplicationBeanConfiguration {
@@ -26,16 +25,16 @@ public class ApplicationBeanConfiguration {
 
     @Bean
     public ValidatorUtil validationUtil() {
-        return null;
+        return new ValidatorUtilImpl();
     }
 
     @Bean
     public ModelMapper modelMapper() {
-        return null;
+        return new ModelMapper();
     }
 
-//    @Bean
-//    public XmlParser xmlParser (){
-//        return null;
-//    }
+    @Bean
+    public XmlParser xmlParser (){
+        return new XmlParserImpl();
+    }
 }
