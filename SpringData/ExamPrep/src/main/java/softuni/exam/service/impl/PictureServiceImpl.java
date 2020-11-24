@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.exam.models.dto.PictureImportDto;
+import softuni.exam.models.entity.Car;
 import softuni.exam.models.entity.Picture;
 import softuni.exam.repository.CarRepository;
 import softuni.exam.repository.PictureRepository;
@@ -21,13 +22,15 @@ public class PictureServiceImpl implements PictureService {
     private final PictureRepository pictureRepository;
     private final ModelMapper modelMapper;
     private final ValidationUtil validationUtil;
+    private final CarRepository carRepository;
     private final String PICTURES_PATH = "src/main/resources/files/json/pictures.json";
 
-    public PictureServiceImpl(Gson gson, PictureRepository pictureRepository, ModelMapper modelMapper, ValidationUtil validationUtil) {
+    public PictureServiceImpl(Gson gson, PictureRepository pictureRepository, ModelMapper modelMapper, ValidationUtil validationUtil, CarRepository carRepository) {
         this.gson = gson;
         this.pictureRepository = pictureRepository;
         this.modelMapper = modelMapper;
         this.validationUtil = validationUtil;
+        this.carRepository = carRepository;
     }
 
     @Override
@@ -48,6 +51,8 @@ public class PictureServiceImpl implements PictureService {
         for (PictureImportDto pictureImportDto : pictureImportDtos) {
             if (this.validationUtil.isValid(pictureImportDto)){
                 Picture mappedPicture = this.modelMapper.map(pictureImportDto, Picture.class);
+                Car car = this.carRepository.getOne(pictureImportDto.getCar());
+                mappedPicture.setCar(car);
                 this.pictureRepository.saveAndFlush(mappedPicture);
                 sb.append(String.format("Successfully import picture - %s\n",pictureImportDto.getName()));
             }
