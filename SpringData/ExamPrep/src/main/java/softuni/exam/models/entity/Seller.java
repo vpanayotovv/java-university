@@ -20,10 +20,13 @@ public class Seller {
 
     @Column
     private String firstName;
+
     @Column
     private String lastName;
+
     @Column(unique = true)
     private String email;
+
     @Enumerated(EnumType.ORDINAL)
     @Column
     private Rating rating;
