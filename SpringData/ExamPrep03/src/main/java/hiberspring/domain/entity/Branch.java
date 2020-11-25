@@ -21,7 +21,7 @@ public class Branch {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Town town;
 
 }

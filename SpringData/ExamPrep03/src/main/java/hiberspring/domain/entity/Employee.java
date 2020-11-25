@@ -26,10 +26,10 @@ public class Employee {
     @Column(nullable = false)
     private String position;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private EmployeeCard card;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Branch branch;
 
 
