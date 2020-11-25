@@ -28,7 +28,7 @@ public class Player {
     private int number;
 
     @Column(nullable = false)
-    private BigDecimal price;
+    private BigDecimal salary;
 
     @Enumerated
     private Position position;

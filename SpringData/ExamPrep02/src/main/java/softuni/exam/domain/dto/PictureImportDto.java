@@ -1,6 +1,7 @@
 package softuni.exam.domain.dto;
 
 
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PictureImportDto {
 
+    @Expose
     @XmlElement
     @NotNull
     private String url;
