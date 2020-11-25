@@ -1,7 +1,6 @@
 package hiberspring.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import hiberspring.util.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -10,20 +9,26 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationBeanConfiguration {
 
+    @Bean
+    public XmlParser xmlParser(){
+        return new XmlParserImpl();
+    }
 
-    //TODO
     @Bean
     public Gson gson() {
-        return null;
+        return new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setPrettyPrinting()
+                .create();
     }
 
     @Bean
     public ValidationUtil validationUtil() {
-        return null;
+        return new ValidationUtilImpl();
     }
 
     @Bean
     public ModelMapper modelMapper() {
-        return null;
+        return new ModelMapper();
     }
 }
