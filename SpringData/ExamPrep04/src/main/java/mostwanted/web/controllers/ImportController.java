@@ -61,7 +61,7 @@ public class ImportController extends BaseController {
     }
 
     @PostMapping("/towns")
-    public ModelAndView importTownsConfirm(@RequestParam("towns") String towns) {
+    public ModelAndView importTownsConfirm(@RequestParam("towns") String towns) throws IOException {
         System.out.println(this.townService.importTowns(towns));
 
         return super.redirect("/import/json");
@@ -73,7 +73,7 @@ public class ImportController extends BaseController {
     }
 
     @PostMapping("/districts")
-    public ModelAndView importDistrictsConfirm(@RequestParam("districts") String districts) {
+    public ModelAndView importDistrictsConfirm(@RequestParam("districts") String districts) throws IOException {
         System.out.println(this.districtService.importDistricts(districts));
 
         return super.redirect("/import/json");
@@ -85,7 +85,7 @@ public class ImportController extends BaseController {
     }
 
     @PostMapping("/racers")
-    public ModelAndView importRacersConfirm(@RequestParam("racers") String racers) {
+    public ModelAndView importRacersConfirm(@RequestParam("racers") String racers) throws IOException {
         System.out.println(this.racerService.importRacers(racers));
 
         return super.redirect("/import/json");

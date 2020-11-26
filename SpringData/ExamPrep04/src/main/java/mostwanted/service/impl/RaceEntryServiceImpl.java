@@ -11,7 +11,7 @@ public class RaceEntryServiceImpl implements RaceEntryService {
     @Override
     public Boolean raceEntriesAreImported() {
         //TODO: Implement me
-        return null;
+        return false;
     }
 
     @Override

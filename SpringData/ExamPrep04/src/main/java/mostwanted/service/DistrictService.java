@@ -8,5 +8,5 @@ public interface DistrictService {
 
     String readDistrictsJsonFile() throws IOException;
 
-    String importDistricts(String districtsFileContent);
+    String importDistricts(String districtsFileContent) throws IOException;
 }

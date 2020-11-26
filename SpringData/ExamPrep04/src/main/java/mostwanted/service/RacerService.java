@@ -8,7 +8,7 @@ public interface RacerService {
 
     String readRacersJsonFile() throws IOException;
 
-    String importRacers(String racersFileContent);
+    String importRacers(String racersFileContent) throws IOException;
 
     String exportRacingCars();
 }
