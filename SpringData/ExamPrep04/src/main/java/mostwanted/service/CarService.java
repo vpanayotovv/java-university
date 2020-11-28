@@ -8,5 +8,5 @@ public interface CarService {
 
     String readCarsJsonFile() throws IOException;
 
-    String importCars(String carsFileContent);
+    String importCars(String carsFileContent) throws IOException;
 }

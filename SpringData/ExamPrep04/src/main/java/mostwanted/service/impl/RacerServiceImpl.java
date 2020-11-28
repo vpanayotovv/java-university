@@ -11,6 +11,7 @@ import mostwanted.service.RacerService;
 import mostwanted.util.FileUtil;
 import mostwanted.util.ValidationUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class RacerServiceImpl implements RacerService {
 
     private final static String RACERS_JSON_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/files/racers.json";
 
+    @Autowired
     public RacerServiceImpl(RacerRepository racerRepository, ValidationUtil validationUtil, ModelMapper modelMapper, Gson gson, TownRepository townRepository, FileUtil fileUtil) {
         this.racerRepository = racerRepository;
         this.validationUtil = validationUtil;

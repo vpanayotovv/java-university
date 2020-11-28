@@ -9,11 +9,10 @@ import mostwanted.service.TownService;
 import mostwanted.util.FileUtil;
 import mostwanted.util.ValidationUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class TownServiceImpl implements TownService {
@@ -25,6 +24,7 @@ public class TownServiceImpl implements TownService {
 
     private final static String TOWNS_JSON_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/files/towns.json";
 
+    @Autowired
     public TownServiceImpl(TownRepository townRepository, Gson gson, ValidationUtil validationUtil, ModelMapper modelMapper, FileUtil fileUtil) {
         this.townRepository = townRepository;
         this.gson = gson;

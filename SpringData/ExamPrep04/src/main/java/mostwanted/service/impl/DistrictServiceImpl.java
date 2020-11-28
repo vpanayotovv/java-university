@@ -11,6 +11,7 @@ import mostwanted.service.DistrictService;
 import mostwanted.util.FileUtil;
 import mostwanted.util.ValidationUtil;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class DistrictServiceImpl implements DistrictService {
 
     private final static String DISTRICT_JSON_FILE_PATH = System.getProperty("user.dir") + "/src/main/resources/files/districts.json";
 
+    @Autowired
     public DistrictServiceImpl(DistrictRepository districtRepository, Gson gson, ModelMapper modelMapper, ValidationUtil validationUtil, FileUtil fileUtil, TownRepository townRepository) {
         this.districtRepository = districtRepository;
         this.gson = gson;
