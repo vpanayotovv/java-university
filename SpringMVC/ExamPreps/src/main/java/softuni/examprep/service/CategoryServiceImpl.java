@@ -5,6 +5,8 @@ import softuni.examprep.model.entity.Category;
 import softuni.examprep.model.entity.enums.CategoryName;
 import softuni.examprep.repository.CategoryRepository;
 
+import java.util.Arrays;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -16,15 +18,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void seedData() {
-        createCategory(CategoryName.FOOD, "This is the Food category");
-        createCategory(CategoryName.DRINK, "This is the Drink category");
-        createCategory(CategoryName.HOUSEHOLD, "This is the Household category");
-        createCategory(CategoryName.OTHER, "This is the Other category");
+        if (this.categoryRepository.count() == 0) {
+            Arrays.stream(CategoryName.values())
+                    .forEach(category -> createCategory(category, String.format("This is the %S category", category.name())));
+        }
     }
 
-    private void createCategory(CategoryName food, String description) {
+    private void createCategory(CategoryName name, String description) {
         Category category = new Category();
-        category.setName(food);
+        category.setName(name);
         category.setDescription(description);
         this.categoryRepository.saveAndFlush(category);
     }
