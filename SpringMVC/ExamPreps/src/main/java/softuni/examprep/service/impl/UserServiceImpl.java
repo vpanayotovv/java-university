@@ -1,10 +1,11 @@
-package softuni.examprep.service;
+package softuni.examprep.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.examprep.model.entity.User;
 import softuni.examprep.model.service.UserServiceModel;
 import softuni.examprep.repository.UserRepository;
+import softuni.examprep.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

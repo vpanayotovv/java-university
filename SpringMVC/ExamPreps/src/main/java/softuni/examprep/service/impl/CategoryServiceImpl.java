@@ -1,9 +1,10 @@
-package softuni.examprep.service;
+package softuni.examprep.service.impl;
 
 import org.springframework.stereotype.Service;
 import softuni.examprep.model.entity.Category;
 import softuni.examprep.model.entity.enums.CategoryName;
 import softuni.examprep.repository.CategoryRepository;
+import softuni.examprep.service.CategoryService;
 
 import java.util.Arrays;
 
@@ -22,6 +23,11 @@ public class CategoryServiceImpl implements CategoryService {
             Arrays.stream(CategoryName.values())
                     .forEach(category -> createCategory(category, String.format("This is the %S category", category.name())));
         }
+    }
+
+    @Override
+    public Category getByName(CategoryName name) {
+       return categoryRepository.findByName(name).orElse(null);
     }
 
     private void createCategory(CategoryName name, String description) {
