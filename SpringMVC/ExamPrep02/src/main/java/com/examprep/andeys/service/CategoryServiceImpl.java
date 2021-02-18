@@ -6,6 +6,8 @@ import com.examprep.andeys.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -25,6 +27,12 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
     }
+
+    @Override
+    public Category findByName(CategoryName categoryName) {
+        return categoryRepository.findByName(categoryName).orElse(null);
+    }
+
 
     private void createCategory(CategoryName name, String description) {
         Category category = new Category();

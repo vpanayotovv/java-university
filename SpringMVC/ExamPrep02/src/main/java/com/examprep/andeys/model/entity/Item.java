@@ -1,13 +1,11 @@
 package com.examprep.andeys.model.entity;
 
+import com.examprep.andeys.model.entity.enums.GenderName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -30,7 +28,7 @@ public class Item extends BaseEntity {
     @ManyToOne
     private Category category;
 
-    @Column(nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private GenderName gender;
 
 }
