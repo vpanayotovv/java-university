@@ -1,6 +1,7 @@
 package com.examprep.andeys.web;
 
-import com.examprep.andeys.model.entity.binding.UserRegisterBindingModel;
+import com.examprep.andeys.model.binding.UserLoginBindingModel;
+import com.examprep.andeys.model.binding.UserRegisterBindingModel;
 import com.examprep.andeys.model.service.UserServiceModel;
 import com.examprep.andeys.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -27,9 +29,9 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String register(Model model){
-        if (!model.containsAttribute("userRegisterBindingModel")){
-            model.addAttribute("userRegisterBindingModel",new UserRegisterBindingModel());
+    public String register(Model model) {
+        if (!model.containsAttribute("userRegisterBindingModel")) {
+            model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
         }
 
         return "register";
@@ -38,24 +40,60 @@ public class UserController {
     @PostMapping("/register")
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+                                  RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())){
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel",userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",bindingResult);
+        if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
 
             return "redirect:register";
         }
 
-        userService.register(modelMapper.map(userRegisterBindingModel,UserServiceModel.class));
+        userService.register(modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
 
         return "redirect:login";
     }
 
     @GetMapping("/login")
-    public String login(){
-
+    public String login(Model model) {
+        if (!model.containsAttribute("userLoginBindingModel")) {
+            model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
+            model.addAttribute("notFound", false);
+        }
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               HttpSession httpSession) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
+
+            return "redirect:login";
+        }
+
+        UserServiceModel userServiceModel = userService.getByUsername(userLoginBindingModel.getUsername());
+
+        if (userServiceModel == null) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("notFound", true);
+
+            return "redirect:login";
+        }
+
+        httpSession.setAttribute("user", userServiceModel);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession){
+        httpSession.invalidate();
+        return "redirect:/";
     }
 
 }

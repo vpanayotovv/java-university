@@ -10,16 +10,16 @@
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav row">
                     <li class="nav-item col-md-4">
-                        <a th:if="${session.user != null}" class="nav-link text-white active h6" href="/">Add Item</a>
+                        <a th:if="${session.user != null}" class="nav-link text-white active h6" href="/items/add">Add Item</a>
                     </li>
                     <li class="nav-item col-md-4">
-                        <a class="nav-link text-white active h6" href="/users/login">Login</a>
+                        <a th:unless="${session.user != null}" class="nav-link text-white active h6" href="/users/login">Login</a>
                     </li>
                     <li class="nav-item col-md-4">
-                        <a class="nav-link text-white active h6" href="/users/register" >Register</a>
+                        <a th:unless="${session.user != null}" class="nav-link text-white active h6" href="/users/register" >Register</a>
                     </li>
                     <li class="nav-item col-md-4">
-                        <a th:if="${session.user != null}"  class="nav-link text-white active h6" href="/">Logout</a>
+                        <a th:if="${session.user != null}"  class="nav-link text-white active h6" href="/users/logout">Logout</a>
                     </li>
                 </ul>
             </div>

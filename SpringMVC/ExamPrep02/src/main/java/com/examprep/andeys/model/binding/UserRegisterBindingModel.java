@@ -1,4 +1,4 @@
-package com.examprep.andeys.model.entity.binding;
+package com.examprep.andeys.model.binding;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
