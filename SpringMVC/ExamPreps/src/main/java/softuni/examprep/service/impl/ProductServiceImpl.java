@@ -8,6 +8,8 @@ import softuni.examprep.repository.ProductRepository;
 import softuni.examprep.service.CategoryService;
 import softuni.examprep.service.ProductService;
 
+import java.math.BigDecimal;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -26,5 +28,10 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productAddBindingModel, Product.class);
         product.setCategory(categoryService.getByName(productAddBindingModel.getCategory()));
         productRepository.saveAndFlush(product);
+    }
+
+    @Override
+    public BigDecimal getTotalPrice() {
+       return productRepository.getSumOfProducts();
     }
 }
