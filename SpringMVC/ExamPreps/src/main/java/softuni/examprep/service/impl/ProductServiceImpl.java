@@ -3,12 +3,15 @@ package softuni.examprep.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.examprep.model.dto.ProductAddBindingModel;
+import softuni.examprep.model.entity.Category;
 import softuni.examprep.model.entity.Product;
+import softuni.examprep.model.entity.enums.CategoryName;
 import softuni.examprep.repository.ProductRepository;
 import softuni.examprep.service.CategoryService;
 import softuni.examprep.service.ProductService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -33,5 +36,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public BigDecimal getTotalPrice() {
        return productRepository.getSumOfProducts();
+    }
+
+    @Override
+    public List<Product> getAllByCategory(CategoryName categoryName) {
+       return productRepository.findAllByCategory_Name(categoryName);
     }
 }
