@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.examprep.model.dto.ProductAddBindingModel;
 import softuni.examprep.service.ProductService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -24,7 +25,11 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    public String add(Model model){
+    public String add(Model model, HttpSession httpSession){
+        if (httpSession.getAttribute("user") == null){
+            return "redirect:/users/login";
+        }
+
         if (!model.containsAttribute("productAddBindingModel")){
             model.addAttribute("productAddBindingModel", new ProductAddBindingModel());
         }
@@ -49,6 +54,13 @@ public class ProductController {
     @GetMapping("/buy/{id}")
     public String buyById(@PathVariable String id){
         productService.buyProduct(id);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/buy/all")
+    public String buyAll(){
+        productService.buyAllProducts();
 
         return "redirect:/";
     }

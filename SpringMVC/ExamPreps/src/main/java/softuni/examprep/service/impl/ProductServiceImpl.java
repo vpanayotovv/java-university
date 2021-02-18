@@ -36,6 +36,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public BigDecimal getTotalPrice() {
+        if (productRepository.getSumOfProducts() == null){
+            return new BigDecimal(0);
+        }
        return productRepository.getSumOfProducts();
     }
 
@@ -47,5 +50,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void buyProduct(String id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public void buyAllProducts() {
+        productRepository.deleteAll();
     }
 }
