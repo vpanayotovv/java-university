@@ -12,7 +12,7 @@
                     <div th:each="food : ${foods}" class="mt-3 rounded badge-info">
                         <img class="mr-2" src="/img/food.png" alt="Food" width="50px" height="50px">
                         <span th:text="|Name: ${food.name} Price: ${food.price} lv|"  >Name: {name} Price: {price} lv</span>
-                        <a class="ml-3 text-danger" href="/">Buy</a>
+                        <a class="ml-3 text-danger" th:href="@{products/buy/{id}(id=${food.id})}">Buy</a>
                     </div>
             </div>
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
@@ -20,7 +20,7 @@
                     <div th:each="drink : ${drinks}" class="mt-3 rounded badge-warning">
                         <img class="mr-2" src="/img/drink.png" alt="Food" width="50px" height="50px">
                         <span th:text="|Name: ${drink.name} Price: ${drink.price} lv|" > Name: {name} Price: {price} lv</span>
-                        <a class="ml-3 text-danger" href="/">Buy</a>
+                        <a class="ml-3 text-danger" th:href="@{products/buy/{id}(id=${drink.id})}" >Buy</a>
                     </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <div th:each="household : ${households}" class="mt-3 rounded badge-success">
                         <img class="mr-2" src="/img/household.png" alt="Food" width="50px" height="50px">
                         <span th:text="|Name: ${household.name} Price: ${household.price} lv|" >Name: {name} Price: {price} lv</span>
-                        <a class="ml-3 text-danger" href="/">Buy</a>
+                        <a class="ml-3 text-danger" th:href="@{products/buy/{id}(id=${household.id})}" >Buy</a>
                     </div>
             </div>
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
@@ -38,7 +38,7 @@
                     <div th:each="other : ${others}" class="mt-3 rounded badge-secondary">
                         <img class="mr-2" src="/img/other.png" alt="Food" width="50px" height="50px">
                         <span th:text="|Name: ${other.name} Price: ${other.price} lv|" >Name: {name} Price: {price} lv</span>
-                        <a class="ml-3 text-danger" href="/">Buy</a>
+                        <a class="ml-3 text-danger" th:href="@{products/buy/{id}(id=${other.id})}" >Buy</a>
 					</div>
             </div>
         </div>

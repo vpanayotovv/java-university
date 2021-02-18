@@ -3,15 +3,16 @@ package softuni.examprep.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.examprep.model.dto.ProductAddBindingModel;
-import softuni.examprep.model.entity.Category;
 import softuni.examprep.model.entity.Product;
 import softuni.examprep.model.entity.enums.CategoryName;
+import softuni.examprep.model.view.ProductViewModel;
 import softuni.examprep.repository.ProductRepository;
 import softuni.examprep.service.CategoryService;
 import softuni.examprep.service.ProductService;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,7 +40,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByCategory(CategoryName categoryName) {
-       return productRepository.findAllByCategory_Name(categoryName);
+    public List<ProductViewModel> getAllByCategory(CategoryName categoryName) {
+       return productRepository.findAllByCategory_Name(categoryName).stream().map(product -> modelMapper.map(product,ProductViewModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void buyProduct(String id) {
+        productRepository.deleteById(id);
     }
 }

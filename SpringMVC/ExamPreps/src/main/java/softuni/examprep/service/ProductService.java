@@ -1,9 +1,8 @@
 package softuni.examprep.service;
 
 import softuni.examprep.model.dto.ProductAddBindingModel;
-import softuni.examprep.model.entity.Category;
-import softuni.examprep.model.entity.Product;
 import softuni.examprep.model.entity.enums.CategoryName;
+import softuni.examprep.model.view.ProductViewModel;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,5 +12,7 @@ public interface ProductService {
 
     BigDecimal getTotalPrice();
 
-    List<Product> getAllByCategory(CategoryName categoryName);
+    List<ProductViewModel> getAllByCategory(CategoryName categoryName);
+
+    void buyProduct(String id);
 }
