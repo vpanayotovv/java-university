@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -23,7 +24,11 @@ public class ItemController {
     }
 
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(Model model, HttpSession httpSession) {
+        if (httpSession.getAttribute("user") == null){
+            return "redirect:/users/login";
+        }
+
         if (!model.containsAttribute("itemAddBindingModel")) {
             model.addAttribute("itemAddBindingModel", new ItemAddBindingModel());
         }
