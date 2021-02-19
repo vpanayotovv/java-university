@@ -5,7 +5,9 @@
 <th:block th:include="~{fragments/navbar}"></th:block>
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Items</span></h1>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Total count of items: 3</span></h1>
+    <h1 class="text-center mt-2">
+        <span th:text="|Total count of items: ${itemsCount}|"
+                class="badge badge-pill badge-dark">Total count of items: 3</span></h1>
     <hr class="hr-3"/>
     <div class="container-fluid">
         <div class="offers row mx-auto d-flex flex-row justify-content-center">

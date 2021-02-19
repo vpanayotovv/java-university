@@ -22,6 +22,7 @@ public class HomeController {
             modelAndView.setViewName("index");
         }else {
             modelAndView.addObject("items", itemService.findAllItems());
+            modelAndView.addObject("itemsCount",itemService.getItemsCount());
             modelAndView.setViewName("home");
         }
         return modelAndView;

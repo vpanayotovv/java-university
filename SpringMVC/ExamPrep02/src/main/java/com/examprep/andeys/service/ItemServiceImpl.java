@@ -50,4 +50,14 @@ public class ItemServiceImpl implements ItemService {
            return itemViewModel;
        }).orElse(null);
     }
+
+    @Override
+    public void delete(Long id) {
+        itemRepository.deleteById(id);
+    }
+
+    @Override
+    public long getItemsCount() {
+       return itemRepository.count();
+    }
 }

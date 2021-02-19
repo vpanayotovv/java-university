@@ -11,4 +11,8 @@ public interface ItemService {
     List<ItemViewModel> findAllItems();
 
     ItemViewModel findById(Long id);
+
+    void delete(Long id);
+
+    long getItemsCount();
 }
