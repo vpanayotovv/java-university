@@ -7,10 +7,7 @@ import com.examprep.andeys.service.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -26,9 +23,9 @@ public class ItemController {
     }
 
     @GetMapping("/add")
-    public String add(Model model){
-        if (!model.containsAttribute("itemAddBindingModel")){
-            model.addAttribute("itemAddBindingModel",new ItemAddBindingModel());
+    public String add(Model model) {
+        if (!model.containsAttribute("itemAddBindingModel")) {
+            model.addAttribute("itemAddBindingModel", new ItemAddBindingModel());
         }
         model.addAttribute("categories", CategoryName.values());
         model.addAttribute("genders", GenderName.values());
@@ -38,11 +35,11 @@ public class ItemController {
     @PostMapping("/add")
     public String addConfirm(@Valid @ModelAttribute("itemAddBindingModel") ItemAddBindingModel itemAddBindingModel,
                              BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes){
+                             RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("itemAddBindingModel",itemAddBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.itemAddBindingModel",bindingResult);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("itemAddBindingModel", itemAddBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.itemAddBindingModel", bindingResult);
             return "redirect:add";
         }
 
@@ -51,4 +48,10 @@ public class ItemController {
         return "redirect:/";
     }
 
+    @GetMapping("/details")
+    public String details(@RequestParam Long id, Model model) {
+        model.addAttribute("item", itemService.findById(id));
+
+        return "details-item";
+    }
 }

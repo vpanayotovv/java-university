@@ -9,4 +9,6 @@ public interface ItemService {
     void add(ItemAddBindingModel itemAddBindingModel);
 
     List<ItemViewModel> findAllItems();
+
+    ItemViewModel findById(Long id);
 }

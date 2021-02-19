@@ -41,4 +41,13 @@ public class ItemServiceImpl implements ItemService {
             return itemViewModel;
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public ItemViewModel findById(Long id) {
+       return itemRepository.findById(id).map(item -> {
+           ItemViewModel itemViewModel = modelMapper.map(item, ItemViewModel.class);
+           itemViewModel.setImgUrl(String.format("/img/%s-%s.jpg", item.getGender(), item.getCategory().getName()));
+           return itemViewModel;
+       }).orElse(null);
+    }
 }
