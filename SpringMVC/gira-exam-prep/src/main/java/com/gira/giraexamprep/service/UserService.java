@@ -1,5 +1,6 @@
 package com.gira.giraexamprep.service;
 
+import com.gira.giraexamprep.model.entity.UserEntity;
 import com.gira.giraexamprep.model.service.UserServiceModel;
 import org.springframework.stereotype.Service;
 
