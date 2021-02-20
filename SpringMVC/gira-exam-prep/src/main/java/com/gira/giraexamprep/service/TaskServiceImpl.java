@@ -13,13 +13,11 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final ModelMapper modelMapper;
     private final ClassificationService classificationService;
-    private final UserService userService;
 
-    public TaskServiceImpl(TaskRepository taskRepository, ModelMapper modelMapper, ClassificationService classificationService, UserService userService) {
+    public TaskServiceImpl(TaskRepository taskRepository, ModelMapper modelMapper, ClassificationService classificationService) {
         this.taskRepository = taskRepository;
         this.modelMapper = modelMapper;
         this.classificationService = classificationService;
-        this.userService = userService;
     }
 
     @Override
