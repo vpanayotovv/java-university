@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<th:block th:include="~{fragments/navbar}"></th:block>
+<main class="p-5 align-content-center bg-blur my-main">
+    <h2 class="text-light border-bottom" th:text="|Total sold copies
+        of all albums: ${totalSum}|"></h2>
+    <div class="row">
+        <div th:each="album : ${allAlbums}" class="col-md-3">
+            <div class="card mb-4 box-shadow">
+                <img th:src="${album.imageUrl}" class="card-img-top" alt="Thumbnail [100%x225]"
+                     data-holder-rendered="true"
+                     style="height: 225px; width: 100%; display: block;">
+                <div class="card-body">
+                    <div class="text-center">
+                        <p th:text="|Name: ${album.name}|" class="card-text border-bottom ">Name: Name of album</p>
+                        <p th:text="|Artist: ${#strings.capitalize(#strings.toLowerCase(album.artist.name))}|"
+                           class="card-text border-bottom ">Artist: Metallica</p>
+                        <p th:text="|Genre: ${album.genre}|" class="card-text border-bottom ">Genre: Metal</p>
+                        <p th:text="|Price: ${album.price}|" class="card-text border-bottom ">Price: 19.99</p>
+                        <p th:text="|Release Date: ${album.releasedDate}|" class="card-text border-bottom">Release
+                            Date: </p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a th:href="@{albums/delete/{id}(id=${album.id})}" type="button"
+                               class="btn btn-sm btn-outline-secondary">Delete</a>
+                        </div>
+                        <small th:text="|${album.copies} copies|" class="text-muted">1000 copies</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:include="~{fragments/footer}"></th:block>
+</body>
+</html>
