@@ -43,7 +43,10 @@ public class DBInit implements CommandLineRunner {
                 .setRoles(List.of(userRole));
 
         userRepository.save(admin);
+        System.out.println("SAVE ADMIN");
         userRepository.save(user);
+        System.out.println("SAVE USER");
+
 
     }
 }

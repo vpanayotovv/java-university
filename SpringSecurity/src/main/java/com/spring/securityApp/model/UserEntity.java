@@ -16,7 +16,7 @@ public class UserEntity {
 
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
