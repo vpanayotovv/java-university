@@ -1,6 +1,6 @@
-package com.spring.security.model;
+package com.spring.securityApp.model;
 
-import com.spring.security.model.enums.RoleName;
+import com.spring.securityApp.model.enums.RoleName;
 
 import javax.persistence.*;
 

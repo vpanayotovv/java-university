@@ -1,4 +1,4 @@
-package com.spring.security.model;
+package com.spring.securityApp.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
